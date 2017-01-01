@@ -1,0 +1,873 @@
+1 Conga L *p
+2 Conga R *p
+3 Conga Inner L
+4 Conga Inner R
+5 Conga Edge L
+6 Conga Edge R
+7 Conga Bass
+8 Conga Slap *p
+9 Conga Slap 1
+10 Conga Slap 2
+11 Conga Gliss
+12 Conga /Heel L *p
+13 Conga /Heel R *p
+14 Conga /Toe L
+15 Conga /Toe R
+16 Tumba L *p
+17 Tumba R *p
+18 Tumba Edge L
+19 Tumba Edge R
+20 Tumba Bass
+21 Tumba Gliss
+22 Bongo Hi L *p
+23 Bongo Hi R *p
+24 Bongo H Inner L
+25 Bongo H Inner R
+26 Bongo H Edge L
+27 Bongo H Edge R
+28 Bongo H Slap
+29 BongoH/Heel L *p
+30 BongoH/Heel R *p
+31 Bongo H /Toe L
+32 Bongo H /Toe R
+33 Bongo Lo L *p
+34 Bongo Lo R *p
+35 Bongo L Slap
+36 Timbale Hi L *p
+37 Timbale Hi R *p
+38 TimbaleH Inner L
+39 TimbaleH Inner R
+40 Timbale H Rim L
+41 Timbale H Rim R
+42 Timbale H Hand
+43 Timbale H Paila
+44 Timbale Mid L *p
+45 Timbale Mid R *p
+46 TimbaleM Inner L
+47 TimbaleM Inner R
+48 Timbale M Rim L
+49 Timbale M Rim R
+50 Timbale M Hand
+51 Timbale M Paila
+52 Timbale Lo L *p
+53 Timbale Lo R *p
+54 Timbale L Rim L
+55 Timbale L Rim R
+56 Timbale L Hand
+57 Timbale L Paila
+58 Cajon L *p
+59 Cajon R *p
+60 Cajon Bass L
+61 Cajon Bass R
+62 Cajon Edge L
+63 Cajon Edge R
+64 Cajon Foot
+65 Cajon Thumb
+66 Cajon Side L
+67 Cajon Side R
+68 Cajon SideEdge L
+69 Cajon SideEdge R
+70 Cajon Slap
+71 Pandeiro *p
+72 Pandeiro Thumb
+73 Pandeiro Slap
+74 Pandeiro Heel
+75 Pandeiro Toe
+76 Pandeiro Roll
+77 Tamborim
+78 Tamborim Mute
+79 Repinique *p
+80 Repinique Rim 1
+81 Repinique Rim 2
+82 Repinique Hand
+83 Surdo *p
+84 Surdo Rim
+85 Surdo Hand
+86 Bombo
+87 Bombo Rim
+88 Tambour
+89 Tambour Rim
+// Latin2
+90 Cowbell 1
+91 Cowbell 1 Tip
+92 Cowbell 2
+93 Cowbell 2 Tip
+94 Cowbell 3
+95 Cowbell 3 Close
+96 Cowbell 4
+ 97 Cowbell 5
+98 Cowbell 6
+99 Cowbell 7
+100 Cowbell 8
+101 Cowbell 9
+102 Cowbell 10
+103 Agogo Hi
+104 Agogo Lo
+105 Claves 1
+106 Claves 2
+107 Guiro 1
+108 Guiro 1 Hit
+109 Guiro 2
+110 Guiro 2 Hit
+111 Maracas 1
+112 Maracas 2
+113 Metal Maracas 1
+114 Metal Maracas 2
+115 Metal Maracas 3
+116 Shaker 1
+117 Shaker 2
+118 Caxixi 1
+119 Caxixi 2
+120 Ganza 1
+121 Ganza 2
+122 Ganza 3
+123 String Bean
+124 Chafchas
+125 Cabasa
+126 Afuche
+127 Quijada
+128 Vibra-Slap
+129 Cuica
+130 Cuica Press
+131 Berimbau *n
+132 Berimbau Press
+133 Berimbau Bend
+134 Berimbau Gourd
+135 Rain Stick*l
+// AFRICAN 1
+136 Djembe Hi *p
+137 Djembe Hi Edge
+138 Djembe Hi Bass
+139 Djembe Lo *p
+140 Djembe Lo Inner
+141 Djembe Lo Edge
+142 Djembe Lo Bass
+143 Djembe Ears
+144 Kenkeni
+145 Kenkeni Rim
+146 Sangban
+147 Sangban Rim
+148 Doumdoumba
+149 Doumdoumba Rim
+150 Bougarabou Hi
+151 BougarabouH Slap
+152 BougarabouH Bass
+153 Bougarabou Mid
+154 BougarabouM Slap
+155 BougarabouM Bass
+156 Bougarabou Lo
+157 BougarabouL Slap
+158 BougarabouL Bass
+159 Talking Drum
+160 Bendir *p
+161 Bendir Edge
+162 Bendir Scrape
+163 Bendir Harm
+164 Pot Drum L *p
+165 Pot Drum R *p
+166 Pot Drum L Edge
+167 Pot Drum R Edge
+168 Pot Drum Hole S
+169 Pot Drum Hole L
+170 Pot Drum Bottom
+171 Pot Drum Heel
+172 Pot Drum Gliss
+173 PotDrum /HeelL*p
+174 PotDrum /HeelR*p
+175 Log Drum Hi
+176 Log Drum Lo
+177 Water Drum Hi
+178 Water Drum Mid
+179 Water Drum Lo
+//AFRICAN 2
+180 Afro Claves
+181 AfroClaves Close
+182 Metal Castanets
+183 MCastanets Close
+184 MCastanetsScrape
+185 Apitua
+186 Apitua Mute
+187 Apitua Scrape
+188 Grello
+189 African Bracelet
+190 African Jingle
+191 Ankle Bells
+192 MoroccanCastanet
+193 MoroccanC Close
+194 Mega Cowbell
+195 MegaCowbell Mute
+196 MegaCowbellStomp
+197 Shekere Shake
+198 Shekere Tap
+199 Shekere Net
+200 Shekere Bottom
+201 Shekere Roll 1
+202 Shekere Roll 2
+203 Nuts Rattle
+204 Nuts Rattle Roll *l
+205 Nuts Rattle 2
+206 Ankle Beads
+207 Rakatak
+// ASIAN 1
+208 Tabla Na
+209 Tabla Te
+210 Tabla Ti
+211 Tabla Tin
+212 Tabla Tun
+213 Baya Ga
+214 Baya Ge
+215 Baya Ge Mute
+216 Baya Ge Slide
+217 Baya Gin
+218 Baya Ka
+219 Dholak Ga
+220 Dholak Ta
+221 Dholak Tun
+222 Dholak Na
+223 Dhol Beater
+224 Dhol Hand
+225 Dhol Body
+226 Dhol Stick
+227 Darabuka *p
+228 Darabuka Tek
+229 Darabuka Snap
+230 Darabuka Inner
+231 Darabuka Press
+232 Dawul
+233 Dawul Stick
+234 Dawul Buzz
+235 Frame Drum L *p
+236 Frame Drum R *p
+237 FrameDrum L Edge
+238 FrameDrum R Edge
+239 FrameDrum Scrape
+240 FrameDrum Harm
+241 Riq *p
+242 Riq Edge
+243 Riq Mute
+244 Riq Jingle
+245 Buk
+246 Buk Rim
+247 Jang Gu
+248 Jang Gu Stick
+249 Ban Gu
+250 Ban Gu Edge
+251 Tang Gu
+252 Tang Gu Edge
+253 Bajiaogu
+254 Bajiaogu Mute
+255 Tsuzumi S
+256 Tsuzumi L
+257 Hira Taiko
+258 Hira Taiko Rim
+259 Nagado Taiko
+260 Nagado Taiko Rim
+ASIAN 2
+261 Elephant Bell Hi
+262 ElephantBell Mid
+263 Elephant Bell Lo
+264 Chimta 1
+265 Chimta 2
+266 Ektara
+267 Devil Chaser
+268 Bell Tree
+269 Zil
+270 Zil Close
+271 Finger Cymbal
+272 Rama Cymbal
+273 Crotale
+274 Bali Cymbal
+275 BaliCymbal Close
+276 Bali Bells
+277 Chenchen
+278 Chenchen Close
+279 Thai Gong
+280 Tam Tam
+281 Gong
+282 Bend Gong
+283 Hu Yin Luo
+284 Nao Bo
+285 Xiao Bo
+286 Chinese Cymbals
+287 ChineseCym Close
+288 Chinese Bell
+289 Gengari
+290 Gengari Mute
+291 Korean Block
+292 Temple Block Hi
+293 Temple Block Lo
+294 Hyoshigi
+295 Kagura Suzu
+296 Kagura Suzu Roll
+297 Chappa
+298 Chappa Close
+299 Chappa Scrape
+300 Atarigane
+ORCHESTRA
+301 Timpani Hi D
+302 Timpani Mid F
+303 Timpani Lo G
+304 Timpani XLo D
+305 Concert Bass Dr
+306 Concert BD Mute
+307 Concert Snare
+308 March Bass Dr 1
+309 March BD 1 Rim
+310 March Bass Dr 2
+311 March BD 2 Rim
+312 Marching Snare 1
+313 Marching S 1 Rim
+314 MarchingS1 Click
+315 Marching Snare 2
+316 Marching S 2 Rim
+317 MarchingS2 Click
+318 Marching Tenor 1
+319 Marching Tenor 2
+320 Marching Tenor 3
+321 Marching Tenor 4
+322 Marching Tenor 5
+323 Pair Cymbal 1
+324 Pair Cym 1 Smash
+325 Pair Cymbal 2
+326 Pair Cym 2 Choke
+327 Pair Cym2 Scrape
+328 Tambourine 1
+329 Tambourine 2
+330 Tambourine2 Roll *l
+331 Tambourine Stick
+332 Triangle 1
+333 Triangle 1 Mute
+334 Triangle 2
+335 Triangle 2 Mute
+336 Wood Block Hi
+337 Wood Block Lo
+338 Plastic Block Hi
+339 Plastic Block Lo
+340 Mini Block
+341 Castanets 1
+342 Castanets1 Close
+343 Castanets 2
+344 Knocker
+345 Cricket
+346 Sleigh Bells
+347 Tree Chime
+348 Pin Chime
+//MELODIC
+349 Steel Drum D3
+350 Steel Drum F3
+351 Steel Drum A3
+352 Steel Drum C4
+353 Steel Drum E4
+354 Steel Drum C5
+355 Steel Drum F5
+356 Steel Drum A5
+357 Balaphone C4
+358 Balaphone G4
+359 Balaphone E5
+360 Balaphone B5
+361 Balaphone GlissU
+362 Balaphone GlissD
+363 Slit Drum F2
+364 Slit Drum A2
+365 Slit Drum D3
+366 Slit Drum F3
+367 Slit Drum G3
+368 Gyilli A2
+369 Gyilli D3
+370 Gyilli G3
+371 Gyilli C4
+372 Gyilli G4
+373 Lithophone G4
+374 Lithophone C5
+375 Lithophone G5
+376 Lithophone C6
+377 Lithophone F6
+378 Khongwong F4
+379 Khongwong B4
+380 Khongwong E5
+381 Khongwong B5
+382 Khongwong E6
+383 Kalimba F3
+384 Kalimba A3
+385 Kalimba C4
+386 Kalimba G#4
+387 Kalimba D#5
+388 Santoor D3
+389 Santoor F#3
+390 Santoor B3
+391 Santoor E4
+392 Santoor F#4
+393 Santoor B4
+394 Santoor E5
+395 Santoor G5
+396 Santoor B5
+397 Hand Pan F3
+398 Hand Pan C4
+399 Hand Pan F4
+400 Hand Pan A4
+401 Hand Pan A#4
+402 Hand Pan C5
+403 Hand Pan D5
+404 Hand Pan F5
+405 Tone Plate G5
+406 Tone Plate C6
+407 Tone Plate F6
+408 Tone Plate A6
+409 Tone Plate C7
+410 Vibraphone G3
+411 Vibraphone C4
+412 Vibraphone E4
+413 Vibraphone G4
+414 Vibraphone B4
+415 Vibraphone D5
+416 Vibraphone G5
+417 Vibraphone C6
+418 Vibraphone E6
+419 Marimba D3
+420 Marimba G3
+421 Marimba C4
+422 Marimba E4
+423 Marimba B4
+424 Marimba D5
+425 Marimba G5
+426 Marimba C6
+427 Marimba E6
+428 Marimba G6
+429 Glockenspiel G5
+430 Glockenspiel C6
+431 Glockenspiel F6
+432 Glockenspiel A6
+433 Glockenspiel D7
+434 Glockenspiel F7
+435 Tublar Bells C
+436 Tublar Bells G
+437 Hand Bell C
+//OTHERS
+438 Ipu Body
+439 Ipu Slap
+440 Ipu Hole
+441 Ipu Stomp
+442 Coco
+443 Coco Mute
+444 Kalaau S
+445 Kalaau L
+446 Ili-ili
+447 Clapsticks
+448 Didgeridoo*l
+449 Ratchet
+450 Ratchet Notch
+451 Metal Crasher
+452 Vibra Metal
+453 Flex Metal
+454 FlexMetal BendUp
+455 Music Bow
+456 Jew’s Harp
+457 Jew’s Harp Wow
+458 Church Bell
+459 Waterphone
+460 Waterphone Hit
+461 Slide Whistle
+462 Slide Whistle Up
+463 Whistle
+464 Duck Call
+465 Quad Horns
+466 Fight Gong
+467 Stomped Box
+// ELECTRO
+468 CR-78 Bongo
+469 CR-78 Cowbell
+470 CR-78 Claves
+471 CR-78 Guiro
+472 CR-78 Maracas
+473 CR-78 Tambourine
+474 CR-78 Metal Beat
+475 TR-808 Conga Hi
+476 TR-808 Conga Mid
+477 TR-808 Conga Lo
+478 TR-808 Cowbell 1
+479 TR-808 Cowbell 2
+480 TR-808 Claves
+481 TR-808 Maracas
+482 TR-707 Cowbell
+483 TR-727 Agogo
+484 DR-55 Claves
+//KICK 1
+485 Studio Kick
+486 Vintage Kick
+487 Compact Kick
+488 Mellow Kick
+489 Hard Kick
+490 Heavy Kick
+491 Plugged Kick
+492 Close Miked Kick
+493 Solid Kick
+494 Floor Tom Kick
+//KICK 2
+495 Tight Kick 1
+496 Tight Kick 2
+497 Tight Kick 3
+498 Tight Cut Kick
+499 Impact Kick
+500 Hybrid Kick
+501 Tronic Kick
+502 New Tronic Kick
+503 Knock Kick
+504 Electro Knock K
+505 Minimal House K
+506 Early House Kick
+507 BreakBeats Kick1
+508 BreakBeats Kick2
+509 DnB Kick 1
+510 DnB Kick 2
+511 Nu Hip Kick
+512 Lo-Fi Kick 1
+513 Lo-Fi Kick 2
+514 Short Noise Kick
+515 Hi Jumper Kick
+516 Lo Jumper Kick
+517 Dance Kick
+518 Dancer Kick
+519 BB Kick
+520 Bounce Kick
+521 Gabba K
+522 Voice Kick 1
+523 Voice Kick 2
+524 Voice Kick 3
+525 Analog Kick 1
+526 Analog Kick 2
+527 Analog Kick 3
+528 FX Electro Kick
+529 CR-78 Kick
+530 TR-606 Kick
+531 TR-808 Kick 1
+532 TR-808 Kick 2
+533 TR-808 Kick Long
+534 TR-909 Kick 1
+535 TR-909 Kick 2
+536 TR-909 Kick 3
+537 DR-110 Kick
+538 R-8 Kick
+//SNARE 1
+539 Wood Snare
+540 Wood Snare Rim
+541 Metal Snare
+542 Metal Snare Rim
+543 Deep Snare
+544 Deep Snare Rim
+545 Piccolo Snare
+546 PiccoloSnare Rim
+547 Solid Snare
+548 Solid Snare Rim
+549 Tight Snare
+550 Tight Snare Rim
+551 Brush Snare
+552 Brush Snare Rim
+553 Brush Hit&Stir*l
+554 Cross Stick 1
+555 Cross Stick 2
+556 Cross Stick 3
+557 Cross Stick 4
+558 Cross Stick 5
+//SNARE 2
+559 OldSchool Snare1
+560 OldSchool Snare2
+561 DnB Snare
+562 Dub Step Snare
+563 Disto Slap Snare
+564 House Low Snare
+565 Tiny House Snare
+566 Hip Snare
+567 Garage Snare
+568 BB Snare
+569 Box Snare
+570 Punch Snare
+571 Barrel Snare
+572 Whack Snare
+573 Radio Snare
+574 Reverse Snare
+575 Voice Snare 1
+576 Voice Snare 2
+577 Voice CrossStick
+578 Analog Snare 1
+579 Analog Snare 2
+580 CR-78 Snare
+581 TR-808 Snare 1
+582 TR-808 Snare 2
+583 TR-909 Snare
+584 TR-909 S w/ Clap
+585 TR-606 Snare
+586 TR-707 Snare
+587 DR-110 Snare
+588 CR-78 Rim
+589 TR-808 Rim
+590 TR-909 Rim
+//TOM 1
+591 Wood Tom Hi
+592 Wood Tom Mid
+593 Wood Tom Lo
+594 Open Tom Hi
+595 Open Tom Mid
+596 Open Tom Lo
+597 Solid Tom Hi
+598 Solid Tom Mid
+599 Solid Tom Lo
+600 Brush Tom Hi
+601 Brush Tom Mid
+602 Brush Tom Lo
+603 Roto Tom Hi
+604 Roto Tom Mid
+605 Roto Tom Lo
+606 Roto Tom XLo
+607 Tube Tom Hi C
+608 Tube Tom G
+609 Tube Tom E
+610 Tube Tom C
+611 Tom Rim Click 1
+612 Tom Rim Click 2
+613 Tom Rim Click 3
+//TOM 2
+614 Voice Tom Hi
+615 Voice Tom Mid
+616 Voice Tom Lo
+617 Voice Tom XLo
+618 Analog Tom1 Hi
+619 Analog Tom1 Mid
+620 Analog Tom1 Lo
+621 Analog Tom2 Hi
+622 Analog Tom2 Mid
+623 Analog Tom2 Lo
+624 TR-808 Tom Hi
+625 TR-808 Tom Mid
+626 TR-808 Tom Lo
+627 TR-909 Tom Hi
+628 TR-909 Tom Mid
+629 TR-909 Tom Lo
+//HI-HAT 1
+630 Light Hi-Hat *h
+631 Light HH Open
+632 Light HH Close
+633 Light HH Edge *h
+634 Light HHE Open
+635 Light HHE Close
+636 Light HH Pedal
+637 Dark Hi-Hat *h
+638 Dark HH Open
+639 Dark HH Close
+640 Dark HH Edge *h
+641 Dark HHE Open
+642 Dark HHE Close
+643 Dark HH Pedal
+644 Brush Hi-Hat *h
+645 Brush HH Open
+646 Brush HH Close
+647 Brush HH Pedal
+648 Spoke Hi-Hat *h
+649 Spoke HH Open
+650 Spoke HH Close
+651 Spoke HH Pedal
+//HI-HAT 2
+652 Club Hi-Hat *h
+653 Club HH Open
+654 Club HH Close
+655 Sharp Hi-Hat *h
+656 Sharp HH Open
+657 Sharp HH Close
+658 Hip Hi-Hat *h
+659 Hip HH Open
+660 Hip HH Close
+661 House Hi-Hat *h
+662 House HH Open
+663 House HH Close
+664 DnB Hi-Hat *h
+665 DnB HH Open
+666 DnB HH Close
+667 LowStepHi-Hat *h
+668 LowStep HH Open
+669 LowStep HH Close
+670 Voice Hi-Hat *h
+671 Voice HH Open
+672 Voice HH Close
+673 CR-78 Hi-Hat *h
+674 CR-78 HH Open
+675 CR-78 HH Close
+676 TR-808 Hi-Hat *h
+677 TR-808 HH Open
+678 TR-808 HH Close
+679 TR-909 Hi-Hat *h
+680 TR-909 HH Open
+681 TR-909 HH Close
+//CYMBALS 1
+682 Light Ride
+683 Light Ride Edge
+684 Light Ride Bell
+685 Dark Ride
+686 Dark Ride Edge
+687 Dark Ride Bell
+688 Brush Ride
+689 Brush Ride Edge
+690 Sizzle Ride
+691 Sizzle Ride Edge
+692 Sizzle Ride Bell
+693 Thin Crash
+694 Dark Crash
+695 Wild Crash
+696 Suspended Crash
+697 Latin Crash
+698 Brush Crash
+699 Splash Cymbal 1
+700 Splash Cymbal 2
+701 Splash Cymbal 3
+702 China Cymbal 1
+703 China Cymbal 2
+704 Swish Cymbal
+705 Trash Cymbal 1
+706 Trash Cymbal 2
+707 Stacked Cymbal
+708 Accent Cymbal
+709 Chime Cymbal
+710 Cross Cymbal 1
+711 Cross Cymbal 2
+712 Mini Cymbal
+// CYMBALS 2
+713 Sweep Crash
+714 Lo-Fi Crash
+715 Ambient Crash
+716 Verby Crash
+717 Gate Crash
+718 Trashy Ride
+719 Phasing Ride
+720 Cosmo Bell
+721 Electra Bell
+722 Reflective Bell
+723 Reverse Crash
+724 Reverse Ride
+725 Reverse Trash
+726 Voice Crash 1
+727 Voice Crash 2
+728 Analog Cymbal
+729 TR-808 Cymbal
+730 TR-606 Cymbal
+// CLAP
+731 Clap 1
+732 Clap 2
+733 Claps
+734 Torio Clap
+735 Flamenco Clap
+736 Room Clap
+737 Ambience Clap
+738 House Clap
+739 Tech House Clap
+740 Minimal Clap
+741 Hip Clap
+742 Buzz Clap
+743 Gate Clap
+744 Noise Clap 1
+745 Noise Clap 2
+746 DR-110 Clap
+747 TR-808 Clap
+748 TR-808 Clap Dry
+749 TR-909 Clap
+750 TR-909 Clap Dry
+751 Finger Snap 1
+752 Finger Snap 2
+753 Ambient Snap
+//SOUND FX
+754 Sticks
+755 Dense Click
+756 Pulse
+757 High Q
+758 Dyna Filter
+759 Random Noise 1
+760 Random Noise 2
+761 Beep
+762 Fat Beep
+763 Disto Beep
+764 Techno Beef
+765 High Saw
+766 Low Saw
+767 Space Beep
+768 Afro Stomp
+769 Super Low
+770 PCM Press
+771 Prevision
+772 Ejector
+773 Water Drop
+774 Echoic Shot
+775 Chromatone
+776 Super Shot
+777 Stamp
+778 Rusty Iron
+779 Digi Cup
+780 Hammer
+781 Abstract Noise
+782 Industrial 1
+783 Industrial 2
+784 Junk
+785 Air Driver
+786 Robo 1
+787 Robo 2
+788 Clock Tick
+789 Clock Bell
+790 Emergency
+791 Discovery
+792 Cave
+793 LP Noise 1*l
+794 LP Noise 2
+795 Blow Attack
+796 Tongue Click
+797 Voice Block
+798 Voice Beep
+799 Voice Granuliser
+800 Voice Scratch
+801 Percussion Hit 1
+802 Percussion Hit 2
+803 Orchestra Hit 1
+804 Orchestra Hit 2
+805 Brass Hit
+806 Philadelphia Hit
+807 Techno Hit
+808 Feedback Wave
+809 Atmosphere
+//ELEMENTS
+810 Low Frequency 1
+811 Low Frequency 2
+812 Low Frequency 3
+813 Attack 1
+814 Attack 2
+815 Attack 3
+816 Attack 4
+817 Ambience Kick 1
+818 Ambience Kick 2
+819 Ambience Kick 3
+820 Ambience Snare 1
+821 Ambience Snare 2
+822 Ambience Snare 3
+823 Ambience Tom 1
+824 Ambience Tom 2
+825 Ambience Tom 3
+826 Snare Buzz
+827 Conga Body *p
+828 Noise 1
+829 Noise 2
+830 Noise 3
+831 Noise 4
+832 Noise 5
+833 Noise 6
+834 Noise 7
+835 White Noise 1 *l
+836 White Noise 2 *l
+837 Sine Wave 1kHz*l
+838 Sine Wave C *l
+839 Triangle Wave C *l
+840 Square Wave C *l
+841 Sawtooth Wave1 C *l
+842 Sawtooth Wave2 C *l
+843 Super Saw C *l
+844 Synth Bass 1 C*l
+845 Synth Bass 2 C*l
+846 Synth Lead C*l
+847 Synth Pad C *l
+848 Synth Brass C *l
+849 Synth Strings C *l
+//OFF
+850 Off
