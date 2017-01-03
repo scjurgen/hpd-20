@@ -1,9 +1,12 @@
 from os import mkdir
 
 from instrumentname import get_instrument_name, get_instrument_pitch
+from melodypadpattern import melody_pad_pattern
 from pad import Pads
 from kit import Kits
 import hashlib
+
+from scales import Scale
 
 CHAIN_MEMINDEX = 1180
 CHAIN_MEMSIZE = 128
@@ -20,7 +23,7 @@ KITS_COUNT = 200
 PADS_COUNT = KITS_COUNT * PADS_PER_KIT
 
 
-def getNoteName(value):
+def get_note_name(value):
     notes = [' C', 'C#', ' D', 'Eb',
              ' E', ' F', 'F#', ' G',
              'Ab', ' A', 'Bb', ' B']
@@ -49,7 +52,7 @@ class HPD:
         for i in range(0, PADS_PER_KIT):
             pitch = self.pads.get_pad(kit * PADS_PER_KIT + i).get_pitch(0)
             pitch = pitch + get_instrument_pitch(self.pads.get_pad(kit * PADS_PER_KIT + i).get_patch(0))
-            real_note = getNoteName(pitch / 100)
+            real_note = get_note_name(pitch / 100)
             print("{0}: {1} {2} {3} {4}".format(self.pads.get_pad_name(i), real_note,
                                                 self.pads.get_pad(kit * PADS_PER_KIT + i).get_volume(0),
                                                 get_instrument_name(self.pads.get_pad(kit * PADS_PER_KIT + i).get_patch(0)),
@@ -111,13 +114,33 @@ class HPD:
         for kit_index in range(KITS_COUNT):
             self.save_kit(kit_index, self.create_kit_filename(kit_index))
 
+    def apply_pad(self, pad_index):
+        pad = self.pads.get_pad(pad_index)
+        hpd.memoryBlock[PAD_MEMINDEX + PAD_MEMSIZE * pad_index:PAD_MEMINDEX + PAD_MEMSIZE * (
+                        pad_index + 1)] = pad.memory_block
+
+    def apply_scale(self, instrument_name, scale, mode, first_note, kit_index, pad_list):
+        kit_index -= 1  # zero based
+        instruments = Scale.get_scale(instrument_name, first_note, len(pad_list), scale, mode)
+
+        for i in range(len(pad_list)):
+            final_pad_index = PADS_PER_KIT * kit_index + pad_list[i]
+            instrument_number = instruments[i][0]
+            instrument_pitch = instruments[i][1]
+            pad = self.pads.get_pad(final_pad_index)
+            pad.set_patch(0, instrument_number)
+            pad.set_pitch(0, instrument_pitch)
+            self.apply_pad(final_pad_index)
 
 # some tests for now
 hpd = HPD('Backup/BKUP-022.HS0')
 hpd.showkit(130)
 hpd.showkit(151)
 hpd.showkit(53)
-hpd.load_kit(188, "kits/Brushes.kit")
+hpd.showkit(130)
+hpd.apply_scale("Glockenspiel", "major", Scale.IONIAN, 72+12, 130, melody_pad_pattern["Alternate-LR"])
+hpd.showkit(130)
+# hpd.load_kit(188, "kits/Brushes.kit")
 hpd.save_file('BKUP-001.HS0')
 
 # mkdir('kits')

@@ -23,7 +23,8 @@ class Scale:
         "Tone Plate": [404, 408],
         "Vibraphone": [409, 417],
         "Marimba": [418, 427],
-        "Glockenspiel": [428, 433]
+        "Glockenspiel": [428, 433],
+        "Tublar Bells": [434, 435]
     }
 
     scale_patterns = {
@@ -33,6 +34,14 @@ class Scale:
         "pentatonic major": [0, 2, 4, 7, 9],
         "pentatonic minor": [0, 3, 5, 7, 10],
     }
+
+    @staticmethod
+    def get_scales():
+        return Scale.scale_patterns.keys()
+
+    @staticmethod
+    def get_meldoic_instruments():
+        return Scale.melodic_sets.keys()
 
     @staticmethod
     def get_nearest_note_and_pitch(first, last, ideal):

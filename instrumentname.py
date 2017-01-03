@@ -854,11 +854,13 @@ instruments = {
 unknown_map = {
     0: 2545,
     1: 2546,
+    2: 2128,
     3: 2129,
     4: 2123,
     5: 2125,
     6: 2634,
     7: 2646,
+    8: 2138,
     9: 2151,
     10: 2144,
     11: 2647,
@@ -867,9 +869,11 @@ unknown_map = {
     14: 2551,
     15: 2840,
     16: 2841,
+    17: 2796,
     18: 2797,
     19: 2798,
     20: 190,
+    21: 2614,
     22: 2621,
     23: 2061,
     24: 2062,
@@ -885,19 +889,23 @@ unknown_map = {
     34: 2105,
     35: 2154,
     36: 2155,
+    37: 2152,
+    38: 2153,
+    39: 2156,
     40: 2157,
     41: 2161,
     42: 2164,
     43: 2629,
     44: 2169,
     45: 2166,
-    46: 2167,
     47: 2170,
+    48: 2171,
     49: 2617,
     50: 2177,
     51: 169,
     52: 2791,
     53: 2792,
+    54: 2793,
     55: 170,
     56: 172,
     57: 2631,
@@ -922,6 +930,7 @@ unknown_map = {
     76: 221,
     77: 222,
     78: 223,
+    79: 226,
     80: 2656,
     81: 224,
     82: 228,
@@ -936,6 +945,7 @@ unknown_map = {
     91: 2097,
     92: 2098,
     93: 2081,
+    94: 2082,
     95: 339,
     96: 340,
     97: 341,
@@ -947,6 +957,8 @@ unknown_map = {
     103: 350,
     104: 403,
     105: 404,
+    106: 445,
+    107: 446,
     108: 447,
     109: 448,
     110: 429,
@@ -958,8 +970,10 @@ unknown_map = {
     116: 424,
     117: 431,
     118: 432,
+    119: 426,
     120: 427,
     121: 428,
+    122: 425,
     123: 444,
     124: 433,
     125: 434,
@@ -970,6 +984,7 @@ unknown_map = {
     130: 458,
     131: 459,
     132: 2838,
+    133: 460,
     134: 455,
     135: 2806,
     136: 2848,
@@ -982,14 +997,17 @@ unknown_map = {
     143: 2512,
     144: 2514,
     145: 2515,
+    146: 2517,
     147: 2518,
     148: 2520,
     149: 2521,
     150: 2522,
+    151: 2523,
     152: 2524,
     153: 2525,
     154: 2526,
     155: 2527,
+    156: 2528,
     157: 2529,
     158: 2530,
     159: 263,
@@ -997,10 +1015,12 @@ unknown_map = {
     161: 265,
     162: 266,
     163: 323,
+    164: 324,
     165: 2659,
     166: 2660,
     167: 326,
     168: 327,
+    169: 328,
     170: 325,
     171: 329,
     172: 2661,
@@ -1018,6 +1038,7 @@ unknown_map = {
     184: 351,
     185: 352,
     186: 353,
+    187: 354,
     188: 355,
     189: 356,
     190: 357,
@@ -1030,6 +1051,8 @@ unknown_map = {
     197: 436,
     198: 437,
     199: 438,
+    200: 439,
+    201: 2645,
     202: 440,
     203: 441,
     204: 442,
@@ -1058,6 +1081,7 @@ unknown_map = {
     227: 256,
     228: 258,
     229: 2657,
+    230: 260,
     231: 270,
     232: 271,
     233: 272,
@@ -1068,6 +1092,7 @@ unknown_map = {
     238: 276,
     239: 277,
     240: 267,
+    241: 2839,
     242: 268,
     243: 269,
     244: 291,
@@ -1078,6 +1103,7 @@ unknown_map = {
     249: 296,
     250: 297,
     251: 298,
+    252: 299,
     253: 300,
     254: 302,
     255: 303,
@@ -1112,6 +1138,7 @@ unknown_map = {
     284: 392,
     285: 387,
     286: 388,
+    287: 389,
     288: 397,
     289: 398,
     290: 417,
@@ -1122,6 +1149,7 @@ unknown_map = {
     295: 2181,
     296: 2077,
     297: 2075,
+    298: 2118,
     299: 399,
     300: 2700,
     301: 2702,
@@ -1130,17 +1158,23 @@ unknown_map = {
     304: 309,
     305: 310,
     306: 2808,
+    307: 311,
+    308: 312,
     309: 313,
+    310: 314,
     311: 2283,
     312: 2284,
+    313: 2285,
     314: 2279,
     315: 2280,
+    316: 2281,
     317: 2303,
     318: 2304,
     319: 2305,
     320: 2306,
     321: 2307,
     322: 2325,
+    323: 2326,
     324: 2327,
     325: 2328,
     326: 2329,
@@ -1157,11 +1191,14 @@ unknown_map = {
     337: 410,
     338: 411,
     339: 412,
+    340: 2074,
+    341: 2073,
     342: 421,
     343: 408,
     344: 409,
     345: 368,
     346: 371,
+    347: 370,
     348: 2704,
     349: 2706,
     350: 2708,
@@ -1173,6 +1210,8 @@ unknown_map = {
     356: 2467,
     357: 2468,
     358: 2469,
+    359: 2470,
+    360: 2471,
     361: 2472,
     362: 2462,
     363: 2463,
@@ -1183,6 +1222,7 @@ unknown_map = {
     368: 2474,
     369: 2475,
     370: 2476,
+    371: 2477,
     372: 2451,
     373: 2452,
     374: 2453,
@@ -1191,6 +1231,7 @@ unknown_map = {
     377: 2456,
     378: 2457,
     379: 2458,
+    380: 2459,
     381: 2460,
     382: 2737,
     383: 2739,
@@ -1238,6 +1279,10 @@ unknown_map = {
     425: 2774,
     426: 2775,
     427: 2776,
+    428: 2779,
+    429: 2781,
+    430: 2783,
+    431: 2784,
     432: 2786,
     433: 2787,
     434: 2489,
@@ -1257,8 +1302,10 @@ unknown_map = {
     448: 1176,
     449: 451,
     450: 365,
+    451: 369,
     452: 366,
     453: 367,
+    454: 461,
     455: 466,
     456: 467,
     457: 400,
@@ -1283,6 +1330,7 @@ unknown_map = {
     476: 2373,
     477: 2369,
     478: 2370,
+    479: 2372,
     480: 2371,
     481: 2422,
     482: 2423,
@@ -1295,13 +1343,17 @@ unknown_map = {
     489: 2186,
     490: 2250,
     491: 2251,
+    492: 0,
     493: 2187,
+    494: 717,
     495: 2823,
+    496: 2824,
     497: 718,
     498: 729,
     499: 13,
     500: 730,
     501: 732,
+    502: 734,
     503: 733,
     504: 720,
     505: 723,
@@ -1310,19 +1362,32 @@ unknown_map = {
     508: 724,
     509: 725,
     510: 728,
+    511: 735,
+    512: 736,
     513: 737,
     514: 2826,
+    515: 2827,
     516: 719,
     517: 2828,
+    518: 12,
+    519: 2829,
+    520: 753,
+    521: 2668,
     522: 2669,
     523: 2670,
     524: 2338,
     525: 2386,
+    526: 2836,
+    527: 2837,
     528: 2387,
+    529: 2844,
     530: 2605,
+    531: 2810,
     532: 2818,
     533: 2336,
+    534: 2391,
     535: 2835,
+    536: 2388,
     537: 2431,
     538: 2200,
     539: 2201,
@@ -1348,10 +1413,16 @@ unknown_map = {
     559: 56,
     560: 800,
     561: 2811,
+    562: 795,
     563: 804,
     564: 805,
+    565: 808,
+    566: 806,
+    567: 53,
     568: 54,
     569: 792,
+    570: 57,
+    571: 59,
     572: 794,
     573: 821,
     574: 2671,
@@ -1383,11 +1454,19 @@ unknown_map = {
     600: 2224,
     601: 2225,
     602: 2215,
+    603: 2216,
     604: 2217,
+    605: 2218,
+    606: 2219,
     607: 2220,
     608: 2221,
+    609: 2222,
+    610: 2226,
+    611: 2227,
+    612: 2228,
     613: 2673,
     614: 2674,
+    615: 2675,
     616: 2676,
     617: 2355,
     618: 2357,
@@ -1398,6 +1477,7 @@ unknown_map = {
     623: 2348,
     624: 2349,
     625: 2350,
+    626: 2352,
     627: 2353,
     628: 2354,
     629: 2244,
@@ -1414,27 +1494,42 @@ unknown_map = {
     640: 2563,
     641: 2564,
     642: 2565,
+    643: 2246,
     644: 2566,
     645: 2567,
     646: 2570,
+    647: 2311,
+    648: 2571,
     649: 2572,
+    650: 2573,
     651: 957,
+    652: 2585,
+    653: 2586,
+    654: 962,
     655: 2596,
     656: 2597,
+    657: 2591,
     658: 960,
     659: 2592,
+    660: 961,
+    661: 2593,
     662: 2595,
     663: 959,
     664: 2589,
     665: 2590,
     666: 963,
+    667: 2598,
     668: 2599,
+    669: 2831,
     670: 2677,
     671: 2678,
+    672: 2365,
     673: 2578,
     674: 2579,
+    675: 2363,
     676: 2581,
     677: 2582,
+    678: 2364,
     679: 2583,
     680: 2584,
     681: 2256,
@@ -1463,6 +1558,7 @@ unknown_map = {
     704: 2242,
     705: 2243,
     706: 2320,
+    707: 2321,
     708: 2322,
     709: 2323,
     710: 2324,
@@ -1474,25 +1570,30 @@ unknown_map = {
     716: 651,
     717: 1033,
     718: 1185,
+    719: 656,
     720: 569,
     721: 1183,
     722: 1004,
     723: 1034,
+    724: 1005,
     725: 2679,
     726: 2680,
     727: 2368,
     728: 2367,
     729: 2411,
     730: 1146,
+    731: 612,
     732: 812,
     733: 2833,
     734: 619,
+    735: 2834,
     736: 1147,
     737: 1148,
     738: 1150,
     739: 1151,
     740: 613,
     741: 1152,
+    742: 614,
     743: 611,
     744: 1153,
     745: 2428,
@@ -1522,14 +1623,21 @@ unknown_map = {
     769: 661,
     770: 664,
     771: 666,
+    772: 2687,
     773: 667,
     774: 648,
+    775: 668,
+    776: 1175,
+    777: 1171,
     778: 665,
+    779: 1178,
     780: 662,
+    781: 745,
     782: 2860,
     783: 655,
     784: 1177,
     785: 1173,
+    786: 1174,
     787: 2863,
     788: 635,
     789: 644,
@@ -1540,10 +1648,14 @@ unknown_map = {
     794: 2691,
     795: 2683,
     796: 2686,
+    797: 2682,
     798: 2684,
     799: 2685,
+    800: 604,
+    801: 605,
     802: 2696,
     803: 2697,
+    804: 2695,
     805: 603,
     806: 600,
     807: 567,
@@ -1561,10 +1673,12 @@ unknown_map = {
     819: 2274,
     820: 2814,
     821: 2276,
+    822: 2816,
     823: 2309,
     824: 2308,
     825: 2275,
     826: 2854,
+    827: 738,
     828: 50,
     829: 2577,
     830: 1172,
@@ -1577,164 +1691,22 @@ unknown_map = {
     837: 1194,
     838: 594,
     839: 592,
+    840: 587,
     841: 586,
+    842: 585,
     843: 580,
     844: 579,
+    845: 2817,
     846: 2613,
+    847: 2694,
     848: 563,
     849: 670,
     850: 65535,
-    851: 65535,
-    852: 65535,
-    853: 65535,
-    854: 65535,
-    855: 65535,
-    856: 65535,
-    857: 65535,
-    858: 65535,
-    859: 65535,
-    860: 65535,
-    861: 65535,
-    862: 65535,
-    863: 65535,
-    864: 65535,
-    865: 65535,
-    866: 65535,
-    867: 65535,
-    868: 65535,
-    869: 65535,
-    870: 65535,
-    871: 0,
-    872: 0,
-    873: 0,
-    874: 0,
-    875: 0,
 }
 
 '''
-('index not mapped: ', 2, 'Conga Inner L')
-('index not mapped: ', 8, 'Conga Slap 1')
-('index not mapped: ', 17, 'Tumba Edge L')
-('index not mapped: ', 21, 'Bongo Hi L *p')
-('index not mapped: ', 37, 'TimbaleH Inner L')
-('index not mapped: ', 38, 'TimbaleH Inner R')
-('index not mapped: ', 39, 'Timbale H Rim L')
-('index not mapped: ', 48, 'Timbale M Rim R')
-('index not mapped: ', 54, 'Timbale L Rim R')
-('index not mapped: ', 79, 'Repinique Rim 1')
-('index not mapped: ', 94, 'Cowbell 3 Close')
-('index not mapped: ', 106, 'Guiro 1')
-('index not mapped: ', 107, 'Guiro 1 Hit')
-('index not mapped: ', 119, 'Ganza 1')
-('index not mapped: ', 122, 'String Bean')
-('index not mapped: ', 133, 'Berimbau Gourd')
-('index not mapped: ', 146, 'Sangban Rim')
-('index not mapped: ', 151, 'BougarabouH Bass')
-('index not mapped: ', 156, 'BougarabouL Slap')
-('index not mapped: ', 164, 'Pot Drum R *p')
-('index not mapped: ', 169, 'Pot Drum Bottom')
-('index not mapped: ', 187, 'Grello')
-('index not mapped: ', 200, 'Shekere Roll 1')
-('index not mapped: ', 201, 'Shekere Roll 2')
-('index not mapped: ', 230, 'Darabuka Press')
-('index not mapped: ', 241, 'Riq Edge')
-('index not mapped: ', 252, 'Bajiaogu')
-('index not mapped: ', 287, 'Chinese Bell')
-('index not mapped: ', 298, 'Chappa Scrape')
-('index not mapped: ', 307, 'March Bass Dr 1')
-('index not mapped: ', 308, 'March BD 1 Rim')
-('index not mapped: ', 310, 'March BD 2 Rim')
-('index not mapped: ', 313, 'MarchingS1 Click')
-('index not mapped: ', 316, 'MarchingS2 Click')
-('index not mapped: ', 323, 'Pair Cym 1 Smash')
-('index not mapped: ', 340, 'Castanets 1')
-('index not mapped: ', 341, 'Castanets1 Close')
-('index not mapped: ', 347, 'Pin Chime')
-('index not mapped: ', 359, 'Balaphone B5')
-('index not mapped: ', 360, 'Balaphone GlissU')
-('index not mapped: ', 371, 'Gyilli G4')
-('index not mapped: ', 380, 'Khongwong B5')
-('index not mapped: ', 382, 'Kalimba F3')
-('index not mapped: ', 383, 'Kalimba A3')
-('index not mapped: ', 384, 'Kalimba C4')
-('index not mapped: ', 428, 'Glockenspiel G5')
-('index not mapped: ', 429, 'Glockenspiel C6')
-('index not mapped: ', 430, 'Glockenspiel F6')
-('index not mapped: ', 431, 'Glockenspiel A6')
-('index not mapped: ', 451, 'Vibra Metal')
-('index not mapped: ', 454, 'Music Bow')
-('index not mapped: ', 479, 'TR-808 Claves')
-('index not mapped: ', 492, 'Solid Kick')
-('index not mapped: ', 494, 'Tight Kick 1')
-('index not mapped: ', 496, 'Tight Kick 3')
-('index not mapped: ', 502, 'Knock Kick')
-('index not mapped: ', 511, 'Lo-Fi Kick 1')
-('index not mapped: ', 512, 'Lo-Fi Kick 2')
-('index not mapped: ', 515, 'Lo Jumper Kick')
-('index not mapped: ', 518, 'BB Kick')
-('index not mapped: ', 519, 'Bounce Kick')
-('index not mapped: ', 520, 'Gabba K')
-('index not mapped: ', 521, 'Voice Kick 1')
-('index not mapped: ', 526, 'Analog Kick 3')
-('index not mapped: ', 527, 'FX Electro Kick')
-('index not mapped: ', 529, 'TR-606 Kick')
-('index not mapped: ', 531, 'TR-808 Kick 2')
-('index not mapped: ', 534, 'TR-909 Kick 2')
-('index not mapped: ', 536, 'DR-110 Kick')
-('index not mapped: ', 562, 'Disto Slap Snare')
-('index not mapped: ', 565, 'Hip Snare')
-('index not mapped: ', 566, 'Garage Snare')
-('index not mapped: ', 567, 'BB Snare')
-('index not mapped: ', 570, 'Barrel Snare')
-('index not mapped: ', 571, 'Whack Snare')
-('index not mapped: ', 603, 'Roto Tom Mid')
-('index not mapped: ', 605, 'Roto Tom XLo')
-('index not mapped: ', 606, 'Tube Tom Hi C')
-('index not mapped: ', 609, 'Tube Tom C')
-('index not mapped: ', 610, 'Tom Rim Click 1')
-('index not mapped: ', 611, 'Tom Rim Click 2')
-('index not mapped: ', 612, 'Tom Rim Click 3')
-('index not mapped: ', 615, 'Voice Tom Lo')
-('index not mapped: ', 626, 'TR-909 Tom Hi')
-('index not mapped: ', 643, 'Brush Hi-Hat *h')
-('index not mapped: ', 647, 'Spoke Hi-Hat *h')
-('index not mapped: ', 648, 'Spoke HH Open')
-('index not mapped: ', 650, 'Spoke HH Pedal')
-('index not mapped: ', 652, 'Club HH Open')
-('index not mapped: ', 653, 'Club HH Close')
-('index not mapped: ', 654, 'Sharp Hi-Hat *h')
-('index not mapped: ', 657, 'Hip Hi-Hat *h')
-('index not mapped: ', 660, 'House Hi-Hat *h')
-('index not mapped: ', 661, 'House HH Open')
-('index not mapped: ', 667, 'LowStep HH Open')
-('index not mapped: ', 669, 'Voice Hi-Hat *h')
-('index not mapped: ', 672, 'CR-78 Hi-Hat *h')
-('index not mapped: ', 675, 'TR-808 Hi-Hat *h')
-('index not mapped: ', 678, 'TR-909 Hi-Hat *h')
-('index not mapped: ', 707, 'Accent Cymbal')
-('index not mapped: ', 719, 'Cosmo Bell')
-('index not mapped: ', 724, 'Reverse Trash')
-('index not mapped: ', 731, 'Clap 2')
-('index not mapped: ', 735, 'Room Clap')
-('index not mapped: ', 742, 'Gate Clap')
-('index not mapped: ', 772, 'Water Drop')
-('index not mapped: ', 775, 'Super Shot')
-('index not mapped: ', 776, 'Stamp')
-('index not mapped: ', 777, 'Rusty Iron')
-('index not mapped: ', 779, 'Hammer')
-('index not mapped: ', 781, 'Industrial 1')
-('index not mapped: ', 786, 'Robo 2')
-('index not mapped: ', 797, 'Voice Beep')
-('index not mapped: ', 800, 'Percussion Hit 1')
-('index not mapped: ', 801, 'Percussion Hit 2')
-('index not mapped: ', 804, 'Brass Hit')
-('index not mapped: ', 822, 'Ambience Tom 1')
-('index not mapped: ', 827, 'Noise 1')
-('index not mapped: ', 840, 'Sawtooth Wave1 C *l')
-('index not mapped: ', 842, 'Super Saw C *l')
-('index not mapped: ', 845, 'Synth Lead C*l')
-('index not mapped: ', 847, 'Synth Brass C *l')
-for i in range(875):
+test
+for i in range(850):
     try:
         v = unknown_map[i]
     except:
@@ -1751,7 +1723,7 @@ def get_internal_map(index):
     try:
         return unknown_map[index]
     except:
-        return 0
+        return 65535
 
 
 def get_instrument_pitch(index):
