@@ -156,7 +156,7 @@ int main() {
             }
             values[key] = value;
         }
-//            printf("%02x%02x:%02x%02x\n",  pads[i].patch[j][0],pads[i].patch[j][1],pads[i].patchSomehow[j][0], pads[i].patchSomehow[j][1]);
+            printf("%02x%02x:%02x%02x\n",  pads[i].patch[j][0],pads[i].patch[j][1],pads[i].patchSomehow[j][0], pads[i].patchSomehow[j][1]);
     }
     for (auto item: values)
     {

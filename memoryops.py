@@ -20,9 +20,19 @@ class MemoryOp:
         return value
 
     @staticmethod
+    def set_int16(memory_block, index, value):
+        memory_block[index] = (value >> 8) & 0xff
+        memory_block[index + 1] = value & 0xff
+
+    @staticmethod
     def get_unsigned_int16(memory_block, index):
         value = memory_block[index] * 256 + memory_block[index + 1]
         return value
+
+    @staticmethod
+    def set_unsigned_int16(memory_block, index, value):
+        memory_block[index] = (value >> 8) & 0xff
+        memory_block[index + 1] = value & 0xff
 
     @staticmethod
     def get_string(memory_block, index, size):

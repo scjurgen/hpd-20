@@ -51,14 +51,14 @@ class Scale:
     def get_scale(instrument_name, first_note, note_count, scale_name, mode=IONIAN):
         note_pattern = Scale.scale_patterns[scale_name]
         low, high = Scale.melodic_sets[instrument_name]
+        print (note_pattern, low, high)
         list = []
         for i in range(note_count):
             nh = i + mode
             h = note_pattern[nh % len(note_pattern)] + 12 * int(nh / len(note_pattern))
             values = Scale.get_nearest_note_and_pitch(low, high, (first_note+h)*100)
+            print(i, h, values)
             list.append(values)
+        print (list)
         return list
-
-print(Scale.get_scale("Steel Drum", 60, 12, "major", Scale.LYDIAN))
-print(Scale.get_scale("Vibraphone", 60, 12, "major", Scale.LYDIAN))
 
