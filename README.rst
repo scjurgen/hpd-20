@@ -1,12 +1,18 @@
 
 
-# HPD-20 Editor
+HPD-20 Editor
+=============
+
+Synopsis
+--------
 
 Program to copy pads and kits, modify scales for melodic stuff
 create chains, appl modifications on pan, volume, sweep etc.
 
 
-## Roadmap
+Roadmap
+-------
+
 - (/) read memory dump (BKUP-???.HS0)
 
 - (/) save all kits into folder
@@ -29,7 +35,8 @@ create chains, appl modifications on pan, volume, sweep etc.
 
 - (x) publish on various musician sites
 
-## Macro operations todo
+Macro operations todo
+---------------------
 
 - patch scales
 
@@ -38,7 +45,8 @@ create chains, appl modifications on pan, volume, sweep etc.
 - swap left right (M1 <-> M2, M3 <-> M4, S1 <-> S8 etc...)
 
 
-## Generic todo
+Generic todo
+------------
 
 get more pitches from some instruments that are for now presumed in C (i.e. Roto Toms, Cowbell)
 
