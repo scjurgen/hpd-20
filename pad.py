@@ -67,6 +67,9 @@ class Pad:
     def get_midi(self):
         return self.memory_block[Pad.MIDI_INDEX]
 
+    def get_layer(self):
+        return self.memory_block[Pad.LAYER_INDEX]
+
     def save(self, fh):
         fh.write(self.memory_block)
 

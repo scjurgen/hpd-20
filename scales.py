@@ -1,5 +1,7 @@
 import instrumentname
 
+# http://www.huygens-fokker.org/docs/scales.zip
+# http://www.huygens-fokker.org/docs/scalesdir.txt
 class Scale:
 
     IONIAN = 0

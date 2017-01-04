@@ -1,7 +1,3 @@
-
-#class MapPatchSomehow
-from __builtin__ import file
-
 from memoryops import MemoryOp
 
 NAME_INDEX = 2

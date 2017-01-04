@@ -55,3 +55,5 @@ Generic todo
 
 get more pitches from some instruments that are for now presumed in C (i.e. Roto Toms, Cowbell)
 
+add unit-tests for the inplace memory manipulations
+

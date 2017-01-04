@@ -1713,11 +1713,13 @@ for i in range(850):
         print("index not mapped: ", i, instruments[i][1])
 '''
 
+
 def get_instrument_name(index):
     try:
         return instruments[index][1]
     except:
         return "User Instrument"
+
 
 def get_internal_map(index):
     try:
@@ -1725,6 +1727,13 @@ def get_internal_map(index):
     except:
         return 65535
 
+
+def get_complete_instrument_list():
+    l = []
+    for key, value in instruments.iteritems():
+        v = str(key) + " " + value[1]
+        l.append(v)
+    return l
 
 def get_instrument_pitch(index):
     try:
