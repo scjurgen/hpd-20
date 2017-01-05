@@ -457,7 +457,7 @@ instruments = {
     455: [-60 * 100, "Jew's Harp"],
     456: [-60 * 100, "Jew's Harp Wow"],
     457: [-60 * 100, "Church Bell"],
-    458: [-60 * 100, "Waterphone"],
+    458: [60 * 100, "Waterphone"],
     459: [-60 * 100, "Waterphone Hit"],
     460: [-60 * 100, "Slide Whistle"],
     461: [-60 * 100, "Slide Whistle Up"],
@@ -1721,6 +1721,13 @@ def get_instrument_name(index):
         return "User Instrument"
 
 
+def get_instrument_name_with_index(index):
+    try:
+        return str(index + 1) + " " + instruments[index][1]
+    except:
+        return "User Instrument"
+
+
 def get_internal_map(index):
     try:
         return unknown_map[index]
@@ -1731,9 +1738,10 @@ def get_internal_map(index):
 def get_complete_instrument_list():
     l = []
     for key, value in instruments.iteritems():
-        v = str(key) + " " + value[1]
+        v = str(key + 1) + " " + value[1]
         l.append(v)
     return l
+
 
 def get_instrument_pitch(index):
     try:

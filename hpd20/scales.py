@@ -1,9 +1,10 @@
 import instrumentname
 
+# note names are C4 = 60 (midi spec)
+
 # http://www.huygens-fokker.org/docs/scales.zip
 # http://www.huygens-fokker.org/docs/scalesdir.txt
 class Scale:
-
     IONIAN = 0
     DORIAN = 1
     PHRYGIAN = 2
@@ -35,14 +36,46 @@ class Scale:
         "harmonic minor": [0, 2, 3, 5, 7, 9, 11],
         "pentatonic major": [0, 2, 4, 7, 9],
         "pentatonic minor": [0, 3, 5, 7, 10],
+        "pentatonic blues min + maj 3rd": [0, 3, 4, 5, 7, 10],
+        "pentatonic blues min + b5": [0, 3, 5, 6, 7, 10],
+        "pentatonic blues min + 3rd+b5": [0, 3, 4, 5, 6, 7, 10],
     }
+
+    keys = [
+        "C", "Db", "D", "Eb", "E", "F", "F#", "G", "Ab", "A", "Bb", "B"
+    ]
+
+    @staticmethod
+    def get_note_name(height):
+        return Scale.keys[height % 12] + str(int(height / 12) - 1)
+
+    @staticmethod
+    def get_relative_note_name(height):
+        return Scale.keys[height % 12]
+
+    @staticmethod
+    def get_root_notes():
+        notes = []
+        for i in range(2, 8):
+            for k in Scale.keys:
+                notes.append(str(k) + str(i))
+        notes.append(str(k) + "9")
+        return notes
+
+    @staticmethod
+    def get_height_of_note(note_as_string):
+        try:
+            val = Scale.get_root_notes().index(note_as_string)
+            return val + 36
+        except:
+            return 0
 
     @staticmethod
     def get_scales():
         return Scale.scale_patterns.keys()
 
     @staticmethod
-    def get_meldoic_instruments():
+    def get_melodic_instruments():
         return Scale.melodic_sets.keys()
 
     @staticmethod
@@ -51,7 +84,7 @@ class Scale:
         best_index = first
         first += 1
         while first < last:
-            delta = ideal- instrumentname.get_instrument_pitch(first)
+            delta = ideal - instrumentname.get_instrument_pitch(first)
             if abs(delta) < abs(best_pitch):
                 best_pitch = delta
                 best_index = first
@@ -62,14 +95,10 @@ class Scale:
     def get_scale(instrument_name, first_note, note_count, scale_name, mode=IONIAN):
         note_pattern = Scale.scale_patterns[scale_name]
         low, high = Scale.melodic_sets[instrument_name]
-        print (note_pattern, low, high)
         list = []
         for i in range(note_count):
             nh = i + mode
             h = note_pattern[nh % len(note_pattern)] + 12 * int(nh / len(note_pattern))
-            values = Scale.get_nearest_note_and_pitch(low, high, (first_note+h)*100)
-            print(i, h, values)
+            values = Scale.get_nearest_note_and_pitch(low, high, (first_note + h) * 100)
             list.append(values)
-        print (list)
         return list
-

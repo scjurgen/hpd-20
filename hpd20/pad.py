@@ -34,17 +34,38 @@ class Pad:
     def get_volume(self, layer):
         return self.memory_block[Pad.VOL_INDEX + layer]
 
+    def set_volume(self, layer, value):
+        self.memory_block[Pad.VOL_INDEX + layer] = value
+
     def get_pan(self, layer):
-        return self.memory_block[Pad.PAN_INDEX + layer]
+        return MemoryOp.get_int8(self.memory_block, Pad.PAN_INDEX + layer)
+
+    def set_pan(self, layer, value):
+        MemoryOp.set_int8(self.memory_block, Pad.PAN_INDEX + layer, value)
 
     def get_color(self, layer):
         return self.memory_block[Pad.COLOR_INDEX + layer]
 
+    def set_color(self, layer, value):
+        self.memory_block[Pad.COLOR_INDEX + layer] = value
+
     def get_sweep(self, layer):
-        return self.memory_block[Pad.SWEEP_INDEX + layer]
+        return MemoryOp.get_int8(self.memory_block, Pad.SWEEP_INDEX + layer)
+
+    def set_sweep(self, layer, value):
+        MemoryOp.set_int8(self.memory_block, Pad.SWEEP_INDEX + layer, value)
+
+    def get_ambientsend(self, layer):
+        return self.memory_block[Pad.AMB_INDEX + layer]
+
+    def set_ambientsend(self, layer, value):
+        self.memory_block[Pad.AMB_INDEX + layer] = value
 
     def get_muffling(self, layer):
         return self.memory_block[Pad.MUFFLING_INDEX + layer]
+
+    def set_muffling(self, layer, value):
+        self.memory_block[Pad.MUFFLING_INDEX + layer] = value
 
     def get_patch(self, layer):
         return MemoryOp.get_unsigned_int16(self.memory_block, Pad.PATCH_INDEX + layer * 2)
@@ -67,8 +88,44 @@ class Pad:
     def get_midi(self):
         return self.memory_block[Pad.MIDI_INDEX]
 
+    def set_midi(self, value):
+        self.memory_block[Pad.MIDI_INDEX] = value
+
     def get_layer(self):
         return self.memory_block[Pad.LAYER_INDEX]
+
+    def set_layer(self, value):
+        self.memory_block[Pad.LAYER_INDEX] = value
+
+    def get_velofade(self):
+        return self.memory_block[Pad.FADE_VALUE_INDEX]
+
+    def set_velofade(self, value):
+        self.memory_block[Pad.FADE_VALUE_INDEX] = value
+
+    def get_trigger(self):
+        return self.memory_block[Pad.TRIGGER_INDEX]
+
+    def set_trigger(self, value):
+        self.memory_block[Pad.TRIGGER_INDEX] = value
+
+    def get_fixvelo(self):
+        return self.memory_block[Pad.FIX_VELOCITY_INDEX]
+
+    def set_fixvelo(self, value):
+        self.memory_block[Pad.FIX_VELOCITY_INDEX] = value
+
+    def get_mute_group(self):
+        return self.memory_block[Pad.FIX_GROUP_INDEX]
+
+    def set_mute_group(self, value):
+        self.memory_block[Pad.FIX_GROUP_INDEX] = value
+
+    def get_mono_poly(self):
+        return self.memory_block[Pad.MONO_POLY_INDEX]
+
+    def set_mono_poly(self, value):
+        self.memory_block[Pad.MONO_POLY_INDEX] = value
 
     def save(self, fh):
         fh.write(self.memory_block)
