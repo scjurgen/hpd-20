@@ -3,7 +3,8 @@
 
 
 # http://jenyay.net/Programming/WxSizer
-
+import ConfigParser
+import os
 import wx
 import wx.grid as gridlib
 
@@ -14,11 +15,56 @@ from instrumentname import get_instrument_pitch, get_instrument_name, get_comple
 wx.SetDefaultPyEncoding('utf-8')
 
 class MyForm(wx.Frame):
-    def __init__(self):
-        wx.Frame.__init__(self, parent=None, title="HPD-20 Editor", size=(1050, 860))
+
+    def load_config(self):
+        self.config = ConfigParser.RawConfigParser()
+        self.config.add_section('Settings')
+        self.config_filename = os.path.expanduser('~/.hpd.cfg')
+        self.current_kit = 1
+        try:
+            self.config.read(os.path.expanduser('~/.hpd.cfg'))
+            self.default_kits_dir = self.config.get('Settings', 'kits_directory')
+            self.default_backup_dir = self.config.get('Settings', 'backup_directory')
+            self.current_kit = self.config.get_int('Settings', 'current_kit')
+
+        except:
+            self.default_kits_dir = ""
+            self.default_backup_dir = ""
+            self.current_kit = 1
+
+    def __init__(self, file_name):
+        self.load_config()
+        self.invisible_color = wx.Colour(200, 200, 200)
+        self.neutral_color = wx.Colour(230, 230, 230)
+        self.o_colors = [wx.Colour(210, 210, 250), wx.Colour(235, 235, 255)]
+        self.s_colors = [wx.Colour(210, 250, 210), wx.Colour(235, 255, 235)]
+        self.m_colors = [wx.Colour(250, 210, 210), wx.Colour(255, 235, 235)]
+
+        self.hpd = hpd20.hpd(file_name)
+        wx.Frame.__init__(self, parent=None, title="hpd-20 Editor", size=(1200, 830))
         self.panel = wx.Panel(self)
         self.layout_menu()
         self.layout_kit_grid()
+        self.main_param_sizer = wx.BoxSizer(wx.HORIZONTAL)
+        self.cb_kit = wx.ComboBox(self.panel, -1, choices=self.hpd.kits.get_list_of_kits(), style=wx.TE_PROCESS_ENTER|wx.CB_READONLY)
+        self.cb_kit.Bind(wx.EVT_COMBOBOX, self.select_kit)
+        self.cb_kit_name = wx.TextCtrl(self.panel, size=(300, -1), value="current kit name", style=wx.TE_PROCESS_ENTER)
+        self.cb_kit.Bind(wx.EVT_CHAR, self.change_kit_name)
+        self.main_param_sizer.Add(self.cb_kit)
+        self.main_param_sizer.Add(self.cb_kit_name)
+
+        sizer = wx.BoxSizer(wx.VERTICAL)
+        sizer.Add(self.main_param_sizer)
+        sizer.Add(self.kit_grid)
+        self.panel.SetSizer(sizer)
+
+    def select_kit(self, event):
+        kit = self.cb_kit.GetCurrentSelection()
+        self.fill_kit(kit)
+
+    def change_kit_name(self, event):
+        pass
+
 
     def layout_menu(self):
         menuBar = wx.MenuBar()
@@ -64,32 +110,37 @@ class MyForm(wx.Frame):
             self.kit_grid.SetRowSize(i, 24)
             self.kit_grid.SetRowLabelValue(i * 2, self.pad_names[i])
             self.kit_grid.SetRowLabelValue(i * 2+1, '')
+            for col in range(len(self.columns)):
+                if self.pad_names[i][0] == 'M':
+                    color = self.m_colors[i % 2]
+                elif self.pad_names[i][0] == 'S':
+                    color = self.s_colors[i % 2]
+                else:
+                    color = self.o_colors[i % 2]
+                self.kit_grid.SetCellBackgroundColour(i*2, col, color)
+                if col < 6:
+                    self.kit_grid.SetCellBackgroundColour(i*2+1, col, self.neutral_color)
+                else:
+                    self.kit_grid.SetCellBackgroundColour(i*2+1, col, color)
+
         self.kit_grid.SetColSize(6, 200)
         #        self.kit_grid.SetCellFont(0, 0, wx.Font(12, wx.ROMAN, wx.ITALIC, wx.NORMAL))
-        print self.kit_grid.GetCellValue(0, 0)
+        #print self.kit_grid.GetCellValue(0, 0)
 
         self.kit_grid.SetCellTextColour(1, 1, wx.RED)
         self.kit_grid.SetCellBackgroundColour(2, 2, wx.CYAN)
-
-        #toolbar2 = wx.ToolBar(self, wx.TB_HORIZONTAL | wx.TB_TEXT)
-
-        self.fill_kit(130)
-        sizer = wx.BoxSizer(wx.VERTICAL)
-        sizer.Add((50, 50), 0)
-        sizer.Add(self.kit_grid)
-        sizer.Add((50, 50), 0)
-        self.panel.SetSizer(sizer)
-
+        self.fill_kit(self.current_kit)
 
     def fill_kit(self, kit):
+
         instr_index = 6
         layer_type = ['off', 'mix', 'velo mix', 'velo fade', 'velo sw']
 
         for i in range(17):
-            pad = hpd.pads.get_pad(kit * hpd20.HPD.PADS_PER_KIT + i)
+            pad = self.hpd.pads.get_pad(kit * hpd20.hpd.PADS_PER_KIT + i)
             if pad.get_layer() == 0:
                 for j in range(len(self.columns)):
-                    self.kit_grid.SetCellTextColour(i * 2 + 1, j, wx.YELLOW)
+                    self.kit_grid.SetCellTextColour(i * 2 + 1, j, self.invisible_color)
             else:
                 for j in range(len(self.columns)):
                     self.kit_grid.SetCellTextColour(i * 2 + 1, j, wx.BLACK)
@@ -110,42 +161,63 @@ class MyForm(wx.Frame):
                 self.kit_grid.SetCellValue(i * 2 + instr, instr_index+4, str(real_note))
 
     def load_kit(self, event):
-        openFileDialog = wx.FileDialog(self, "Load Kit to current set", "", "",
-                                       "HPD-20 Kit (*.kit)|*.kit",
+        openFileDialog = wx.FileDialog(self, "Load Kit to current set", self.default_kits_dir, "",
+                                       "hpd-20 Kit (*.kit)|*.kit",
                                        wx.FD_OPEN | wx.FD_FILE_MUST_EXIST)
         openFileDialog.ShowModal()
-        openFileDialog.GetPath()
+        path = openFileDialog.GetPath()
         openFileDialog.Destroy()
+        self.default_kits_dir = path
+        self.config.set('Settings', 'kits_directory', os.path.dirname(path))
+        with open(self.config_filename, 'wb') as configfile:
+            self.config.write(configfile)
         self.fill_kit(2)
 
     def save_kit(self, event):
-        openFileDialog = wx.FileDialog(self, "Save Kit", "", "",
-                                       "HPD-20 Kit (*.kit)|*.kit",
+        openFileDialog = wx.FileDialog(self, "Save Kit", self.default_kits_dir, "",
+                                       "hpd-20 Kit (*.kit)|*.kit",
                                        wx.FD_SAVE | wx.FD_OVERWRITE_PROMPT)
         openFileDialog.ShowModal()
-        openFileDialog.GetPath()
+        path = openFileDialog.GetPath()
         openFileDialog.Destroy()
+        self.default_kits_dir = path
+        self.config.set('Settings', 'kits_directory', os.path.dirname(path))
+        with open(self.config_filename, 'wb') as configfile:
+            self.config.write(configfile)
         self.fill_kit(3)
 
     def load_memory_backup(self, event):
-        openFileDialog = wx.FileDialog(self, "Open a memory dump", "", "",
-                                       "HPD-20 Dump (*.HS0)|*.HS0",
+        openFileDialog = wx.FileDialog(self, "Open a memory dump", self.default_backup_dir, "",
+                                       "hpd-20 Dump (*.HS0)|*.HS0",
                                        wx.FD_OPEN | wx.FD_FILE_MUST_EXIST)
         openFileDialog.ShowModal()
-        openFileDialog.GetPath()
+        path = openFileDialog.GetPath()
         openFileDialog.Destroy()
+        self.default_backup_dir = path
+        self.config.set('Settings', 'backup_directory', os.path.dirname(path))
+        with open(self.config_filename, 'wb') as configfile:
+            self.config.write(configfile)
+        self.hpd = hpd20.hpd(str(path))
 
     def save_memory_backup(self, event):
-        saveFileDialog = wx.FileDialog(self, "Save memory dump as", "", "",
-                                       "HPD-20 Dump (*.HS0)|*.HS0",
-                                       wx.FD_SAVE | wx.FD_OVERWRITE_PROMPT)
+        saveFileDialog = wx.FileDialog(self, "Save memory dump as", self.default_backup_dir, "",
+                                             "hpd-20 Dump (*.HS0)|*.HS0",
+                                             wx.FD_SAVE | wx.FD_OVERWRITE_PROMPT)
         saveFileDialog.ShowModal()
-        saveFileDialog.GetPath()
+        path = saveFileDialog.GetPath()
         saveFileDialog.Destroy()
+        self.default_backup_dir = path
+        self.config.set('Settings', 'backup_directory', os.path.dirname(path))
+        with open(self.config_filename, 'wb') as configfile:
+            self.config.write(configfile)
+        self.hpd.save_file(str(path))
 
-if __name__ == "__main__":
-    hpd = hpd20.HPD('Backup/BKUP-022.HS0')
+def run_main():
     app = wx.App(False)
-    frame = MyForm()
+    frame = MyForm('Backup/BKUP-022.HS0')
     frame.Show()
     app.MainLoop()
+
+if __name__ == "__main__":
+    run_main()
+

@@ -1,6 +1,6 @@
 
 
-HPD-20 Editor
+hpd-20 Editor
 =============
 
 Synopsis
@@ -9,7 +9,7 @@ Synopsis
 Program to copy kits around (shared in internet?), modify scales for melodic stuff
 create chains, appl modifications on pan, volume, sweep etc.
 
-The HPD-20 can not be edited via MIDI.
+The hpd-20 can not be edited via MIDI.
 This small program will need backups that you create in the SYS-USB Memory menu to work with. Sorry, there is no other way to make it more interactive.
 On the other hand it will help you to manage and exchange your kits with other people, create easily melody based kits
 and last but not least to print your settings on some paper so you will have them ready i.e. for live performances and you just forgot some important setting.

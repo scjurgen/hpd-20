@@ -1,5 +1,6 @@
 Backup
 .idea
+*.HS0
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
