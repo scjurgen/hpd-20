@@ -1,5 +1,7 @@
 from os import mkdir
 
+import sys
+
 from instrumentname import get_instrument_name, get_instrument_pitch
 from melodypadpattern import melody_pad_pattern
 from pad import Pads
@@ -7,6 +9,8 @@ from kit import Kits
 import hashlib
 
 from scales import Scale
+
+version = "0.0.1"
 
 
 def get_note_name(value):
@@ -45,18 +49,29 @@ class HPD:
         self.kits = Kits(kits_memory)
         self.pads = Pads(pads_memory)
 
-    def showkit(self, kit):
+    def digest_kits(self):
+        result = "Kits:\n"
+        for i in range(HPD.KITS_COUNT):
+            result += str(i+1) + ':\t'
+            result += self.kits.get_kit(i).main_name().strip()
+            result += '\t' + self.kits.get_kit(i).sub_name().strip()
+            result += '\n'
+        return result
+
+    def digest_single_kit(self, kit):
         kit -= 1  # zero based
 
-        print("Kit {0}: {1} {2}".format(kit + 1, self.kits.get_kit(kit).main_name(), self.kits.get_kit(kit).sub_name()))
+        result = "Kit {0}: {1} {2}\n".format(kit + 1, self.kits.get_kit(kit).main_name(), self.kits.get_kit(kit).sub_name())
         for i in range(0, HPD.PADS_PER_KIT):
             pitch = self.pads.get_pad(kit * HPD.PADS_PER_KIT + i).get_pitch(0)
             pitch = pitch + get_instrument_pitch(self.pads.get_pad(kit * HPD.PADS_PER_KIT + i).get_patch(0))
             real_note = get_note_name(pitch / 100)
-            print("{0}: {1} {2} {3} {4}".format(self.pads.get_pad_name(i), real_note,
-                                                self.pads.get_pad(kit * HPD.PADS_PER_KIT + i).get_volume(0),
-                                                get_instrument_name(self.pads.get_pad(kit * HPD.PADS_PER_KIT + i).get_patch(0)),
-                                                self.pads.get_pad(kit * HPD.PADS_PER_KIT + i).get_pitch(0)))
+            result += "{0}: {1} {2} {3} {4}\n".format(self.pads.get_pad_name(i), real_note,
+                                                      self.pads.get_pad(kit * HPD.PADS_PER_KIT + i).get_volume(0),
+                                                      get_instrument_name(self.pads.get_pad(kit * HPD.PADS_PER_KIT + i).get_patch(0)),
+                                                      self.pads.get_pad(kit * HPD.PADS_PER_KIT + i).get_pitch(0))
+        result += '\n'
+        return result
 
     def save_file(self, file_name):
         m = hashlib.md5()
@@ -67,7 +82,7 @@ class HPD:
         print(" ".join(hex(ord(n)) for n in md5_digest))
         fh.write(md5_digest)
 
-    def save_kit(self, kit_index, file_name, inc_filename_ifexists = False):
+    def save_kit(self, kit_index, file_name, inc_filename_ifexists=False):
         try:
             if inc_filename_ifexists:
                 pass
@@ -125,6 +140,69 @@ class HPD:
             pad.set_patch(0, instrument_number)
             pad.set_pitch(0, instrument_pitch)
             self.apply_pad(final_pad_index)
+
+
+
+
+def usage(argv):
+    print("Usage: " + argv[0] + "[OPTIONS] <backup-file> [COMMAND]")
+    print("Version: " + version)
+    print("OPTIONS: ")
+    print("  -h,--help              Show this help")
+    print("  -v,--verbose           Create verbose output")
+
+    print("COMMANDS:")
+    print("  show chains")
+    print("  show kits")
+    print("  show kit #")
+
+def run_main():
+    argv = list()
+    for arg in sys.argv:
+        argv.append(arg)
+    verbose = 0
+    if len(argv) < 2:
+        usage(argv)
+        sys.exit(2)
+    arg_pos = 1
+
+    while argv[arg_pos].startswith('-'):
+        if argv[arg_pos].startswith('--'):
+            option = argv[arg_pos][2:]
+        else:
+            option = argv[arg_pos]
+        arg_pos += 1
+        if option == 'verbose' or option == '-v':
+            verbose += 1
+        elif option == 'help' or option == '-h':
+            usage(argv)
+            sys.exit(2)
+        else:
+            print("unknown option --{0}".format(option))
+            usage(argv)
+            sys.exit(2)
+
+    hpd = HPD(argv[arg_pos])
+    arg_pos += 1
+    result = ""
+    while arg_pos < len(argv):
+        operation = argv[arg_pos]
+        arg_pos += 1
+        if operation == 'show':
+            showing = argv[arg_pos]
+            arg_pos += 1
+            if showing == 'kits':
+                result += hpd.digest_kits()
+            if showing == 'kit':
+                result += hpd.digest_single_kit(int(argv[arg_pos]))
+                arg_pos += 1
+
+    if result is not None:
+        sys.stdout.write(result)
+    sys.stdout.write('\n')
+
+if __name__ == "__main__":
+    run_main()
 
 # some tests for now
 '''

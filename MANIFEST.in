@@ -1,0 +1,3 @@
+include README.rst
+include hpd20/*
+include kits/*
