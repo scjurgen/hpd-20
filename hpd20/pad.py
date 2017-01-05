@@ -35,13 +35,16 @@ class Pad:
         return self.memory_block[Pad.VOL_INDEX + layer]
 
     def get_pan(self, layer):
-        return self.memory_block[Pad.PAN_INDEX + layer]
+        return MemoryOp.get_int8(self.memory_block, Pad.PAN_INDEX + layer)
 
     def get_color(self, layer):
         return self.memory_block[Pad.COLOR_INDEX + layer]
 
     def get_sweep(self, layer):
-        return self.memory_block[Pad.SWEEP_INDEX + layer]
+        return MemoryOp.get_int8(self.memory_block, Pad.SWEEP_INDEX + layer)
+
+    def get_ambientsend(self, layer):
+        return self.memory_block[Pad.AMB_INDEX + layer]
 
     def get_muffling(self, layer):
         return self.memory_block[Pad.MUFFLING_INDEX + layer]
@@ -69,6 +72,21 @@ class Pad:
 
     def get_layer(self):
         return self.memory_block[Pad.LAYER_INDEX]
+
+    def get_velofade(self):
+        return self.memory_block[Pad.FADE_VALUE_INDEX]
+
+    def get_trigger(self):
+        return self.memory_block[Pad.TRIGGER_INDEX]
+
+    def get_fixvelo(self):
+        return self.memory_block[Pad.FIX_VELOCITY_INDEX]
+
+    def mute_group(self):
+        return self.memory_block[Pad.FIX_GROUP_INDEX]
+
+    def mono_poly(self):
+        return self.memory_block[Pad.MONO_POLY_INDEX]
 
     def save(self, fh):
         fh.write(self.memory_block)
