@@ -66,7 +66,7 @@ class hpd:
         for i in range(0, hpd.PADS_PER_KIT):
             pitch = self.pads.get_pad(kit * hpd.PADS_PER_KIT + i).get_pitch(0)
             pitch = pitch + get_instrument_pitch(self.pads.get_pad(kit * hpd.PADS_PER_KIT + i).get_patch(0))
-            real_note = get_note_name(pitch / 100)
+            real_note = get_note_name((pitch+50) / 100)
             result += "{0}: {1} {2} {3} {4}\n".format(self.pads.get_pad_name(i), real_note,
                                                       self.pads.get_pad(kit * hpd.PADS_PER_KIT + i).get_volume(0),
                                                       get_instrument_name(self.pads.get_pad(kit * hpd.PADS_PER_KIT + i).get_patch(0)),

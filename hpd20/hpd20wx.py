@@ -10,7 +10,8 @@ import wx.grid as gridlib
 
 import hpd20
 
-from instrumentname import get_instrument_pitch, get_instrument_name, get_complete_instrument_list
+from instrumentname import get_instrument_pitch, get_instrument_name, get_complete_instrument_list, \
+    get_instrument_name_with_index
 
 wx.SetDefaultPyEncoding('utf-8')
 
@@ -20,25 +21,34 @@ class MyForm(wx.Frame):
         self.config = ConfigParser.RawConfigParser()
         self.config.add_section('Settings')
         self.config_filename = os.path.expanduser('~/.hpd.cfg')
-        self.current_kit = 1
         try:
             self.config.read(os.path.expanduser('~/.hpd.cfg'))
             self.default_kits_dir = self.config.get('Settings', 'kits_directory')
             self.default_backup_dir = self.config.get('Settings', 'backup_directory')
-            self.current_kit = self.config.get_int('Settings', 'current_kit')
-
+            self.current_kit = self.config.getint('Settings', 'current_kit')
         except:
-            self.default_kits_dir = ""
-            self.default_backup_dir = ""
-            self.current_kit = 1
+            pass
 
     def __init__(self, file_name):
-        self.load_config()
+        self.default_kits_dir = ""
+        self.default_backup_dir = ""
+        self.current_kit = 1
+        self.instrument_index_offset = 6
         self.invisible_color = wx.Colour(200, 200, 200)
         self.neutral_color = wx.Colour(230, 230, 230)
         self.o_colors = [wx.Colour(210, 210, 250), wx.Colour(235, 235, 255)]
         self.s_colors = [wx.Colour(210, 250, 210), wx.Colour(235, 255, 235)]
         self.m_colors = [wx.Colour(250, 210, 210), wx.Colour(255, 235, 235)]
+        self.columns = ['Layer', 'fade', 'trigger', 'velo', 'mutgrp', 'mn/ply',
+                        'Instrument', 'vol', 'cents', 'note', 'muff', 'color', 'swp', 'ambsend', 'pan']
+        self.pad_names = ['M1 ◵', 'M2 ◶', 'M3 ◴', 'M4 ◷', 'M5 ●',
+                          'S1', 'S2', 'S3', 'S4',
+                          'S5', 'S6', 'S7', 'S8',
+                          'D-Beam', 'Head', 'Rim', 'HH']
+        self.layer_type = ['off', 'mix', 'velo mix', 'velo fade', 'velo sw']
+        self.trigger_type = ['shot', 'gate', 'alt']
+
+        self.load_config()
 
         self.hpd = hpd20.hpd(file_name)
         wx.Frame.__init__(self, parent=None, title="hpd-20 Editor", size=(1200, 830))
@@ -61,10 +71,12 @@ class MyForm(wx.Frame):
     def select_kit(self, event):
         kit = self.cb_kit.GetCurrentSelection()
         self.fill_kit(kit)
+        self.config.set('Settings', 'current_kit', kit)
+        with open(self.config_filename, 'wb') as configfile:
+            self.config.write(configfile)
 
     def change_kit_name(self, event):
         pass
-
 
     def layout_menu(self):
         menuBar = wx.MenuBar()
@@ -77,31 +89,24 @@ class MyForm(wx.Frame):
         save_item = menu1.Append(wx.ID_SAVE, '&Save memory dump')
         self.Bind(wx.EVT_MENU, self.save_memory_backup, save_item)
         menu1.AppendSeparator()
-        loadkit_item = menu1.Append(wx.ID_ANY, 'Load Kit (overwrites current)')
-        self.Bind(wx.EVT_MENU, self.load_kit, loadkit_item)
-        savekit_item = menu1.Append(wx.ID_ANY, 'Save Kit')
-        self.Bind(wx.EVT_MENU, self.save_kit, savekit_item)
+        load_kit_item = menu1.Append(wx.ID_ANY, 'Load Kit (overwrites current)')
+        self.Bind(wx.EVT_MENU, self.load_kit, load_kit_item)
+        save_kit_item = menu1.Append(wx.ID_ANY, 'Save Kit')
+        self.Bind(wx.EVT_MENU, self.save_kit, save_kit_item)
         menu1.AppendSeparator()
-        fitem = menu1.Append(wx.ID_EXIT, 'Quit', 'Quit application')
+        menu1.Append(wx.ID_EXIT, 'Quit', 'Quit application')
         menu6 = wx.Menu()
         menuBar.Append(menu6, '&Tools')
         menu7 = wx.Menu()
         menuBar.Append(menu7, '&Macros')
         menu7.Append(wx.ID_ANY, 'Set Scale')
         menu7.Append(wx.ID_ANY, 'Pan')
-
         menu8 = wx.Menu()
         menuBar.Append(menu8, '&Help')
 
         self.SetMenuBar(menuBar)
 
     def layout_kit_grid(self):
-        self.columns = ['Layer', 'fade', 'trigger', 'velo', 'mutgrp', 'mn/ply',
-                        'Instrument', 'nr', 'vol', 'cents', 'note', 'muff', 'color', 'swp', 'ambsend','pan']
-        self.pad_names = ['M1 ◵', 'M2 ◶', 'M3 ◴', 'M4 ◷', 'M5 ●',
-                          'S1', 'S2', 'S3', 'S4',
-                          'S5', 'S6', 'S7', 'S8',
-                          'D-Beam', 'Head', 'Rim', 'HH']
         self.kit_grid = gridlib.Grid(self.panel)
         self.kit_grid.CreateGrid(len(self.pad_names)*2, len(self.columns))
         for i in range(len(self.columns)):
@@ -112,6 +117,15 @@ class MyForm(wx.Frame):
             self.kit_grid.SetRowLabelValue(i * 2, self.pad_names[i])
             self.kit_grid.SetRowLabelValue(i * 2+1, '')
             for col in range(len(self.columns)):
+                if col == 6:
+                    self.kit_grid.SetCellAlignment(i*2, col, wx.ALIGN_LEFT, wx.ALIGN_CENTRE)
+                    self.kit_grid.SetCellAlignment(i*2+1, col, wx.ALIGN_LEFT, wx.ALIGN_CENTRE)
+                elif col == 10:
+                    self.kit_grid.SetCellAlignment(i * 2, col, wx.ALIGN_CENTRE, wx.ALIGN_CENTRE)
+                    self.kit_grid.SetCellAlignment(i * 2 + 1, col, wx.ALIGN_CENTRE, wx.ALIGN_CENTRE)
+                else:
+                    self.kit_grid.SetCellAlignment(i * 2, col, wx.ALIGN_RIGHT, wx.ALIGN_CENTRE)
+                    self.kit_grid.SetCellAlignment(i * 2 + 1, col, wx.ALIGN_RIGHT, wx.ALIGN_CENTRE)
                 if self.pad_names[i][0] == 'M':
                     color = self.m_colors[i % 2]
                 elif self.pad_names[i][0] == 'S':
@@ -127,11 +141,34 @@ class MyForm(wx.Frame):
         self.kit_grid.SetColSize(6, 200)
         self.fill_kit(self.current_kit)
 
-    def fill_kit(self, kit):
+    def retrieve_kit_values(self, kit):
+        instr_index_offset = 6
+        for i in range(17):
+            pad = self.hpd.pads.get_pad(kit * hpd20.hpd.PADS_PER_KIT + i)
+            layer = self.kit_grid.GetCellValue(i * 2, 0)
+            pad.set_layer(self.layer_type.index(layer))
+            pad.set_velofade(int(self.kit_grid.GetCellValue(i * 2, 1)))
+            trigger_type = self.kit_grid.GetCellValue(i * 2, 2)
+            pad.set_trigger(self.trigger_type.index(trigger_type))
+            pad.set_fixvelo(int(self.kit_grid.GetCellValue(i * 2, 3)))
+            pad.set_mute_group(int(self.kit_grid.GetCellValue(i * 2, 4)))
+            pad.set_mono_poly(int(self.kit_grid.GetCellValue(i * 2, 5)))
+            '''
+            for instr in range(2):
+                col_idx = i * 2 + instr
+                self.kit_grid.SetCellValue(col_idx, instr_index_offset+0, get_instrument_name_with_index(pad.get_patch(instr)))
+                self.kit_grid.SetCellValue(col_idx, instr_index_offset+1, str(pad.get_volume(instr)))
+                self.kit_grid.SetCellValue(col_idx, instr_index_offset+2, str(pitch))
+                self.kit_grid.SetCellValue(col_idx, instr_index_offset+3, str(real_note))
+                self.kit_grid.SetCellValue(col_idx, instr_index_offset+4, str(pad.get_muffling(instr)))
+                self.kit_grid.SetCellValue(col_idx, instr_index_offset+5, str(pad.get_color(instr)))
+                self.kit_grid.SetCellValue(col_idx, instr_index_offset+6, str(pad.get_sweep(instr)))
+                self.kit_grid.SetCellValue(col_idx, instr_index_offset+7, str(pad.get_ambientsend(instr)))
+                self.kit_grid.SetCellValue(col_idx, instr_index_offset+8, str(pad.get_pan(instr)))
+            '''
 
-        instr_index = 6
-        layer_type = ['off', 'mix', 'velo mix', 'velo fade', 'velo sw']
-        trigger_type = ['shot', 'gate', 'alt']
+    def fill_kit(self, kit):
+        instr_index_offset = 6
         for i in range(17):
             pad = self.hpd.pads.get_pad(kit * hpd20.hpd.PADS_PER_KIT + i)
             if pad.get_layer() == 0:
@@ -140,36 +177,37 @@ class MyForm(wx.Frame):
             else:
                 for j in range(len(self.columns)):
                     self.kit_grid.SetCellTextColour(i * 2 + 1, j, wx.BLACK)
-            self.kit_grid.SetCellValue(i * 2, 0, layer_type[pad.get_layer()])
+            self.kit_grid.SetCellValue(i * 2, 0, self.layer_type[pad.get_layer()])
             self.kit_grid.SetCellValue(i * 2, 1, str(pad.get_velofade()))
-            self.kit_grid.SetCellValue(i * 2, 2, str(trigger_type[pad.get_trigger()]))
+            self.kit_grid.SetCellValue(i * 2, 2, str(self.trigger_type[pad.get_trigger()]))
             self.kit_grid.SetCellValue(i * 2, 3, str(pad.get_fixvelo()))
-            self.kit_grid.SetCellValue(i * 2, 4, str(pad.mute_group()))
-            self.kit_grid.SetCellEditor(i * 2 , 4, gridlib.GridCellNumberEditor(0, 8))
+            self.kit_grid.SetCellValue(i * 2, 4, str(pad.get_mute_group()))
+            self.kit_grid.SetCellEditor(i * 2, 4, gridlib.GridCellNumberEditor(0, 8))
+            self.kit_grid.SetCellValue(i * 2, 5, str(pad.get_mono_poly()))
             for instr in range(2):
-                choice_editor = gridlib.GridCellChoiceEditor(get_complete_instrument_list(), True)
-                self.kit_grid.SetCellEditor(i * 2 + instr, instr_index+0, choice_editor)
-                self.kit_grid.SetCellValue(i * 2 + instr, instr_index+0, get_instrument_name(pad.get_patch(instr)))
-                self.kit_grid.SetCellValue(i * 2 + instr, instr_index+1, str(pad.get_patch(instr)+1))
-                self.kit_grid.SetCellEditor(i * 2 + instr, instr_index+2, gridlib.GridCellNumberEditor(0, 1900))
-                self.kit_grid.SetCellValue(i * 2 + instr, instr_index+2, str(pad.get_volume(instr)))
-                self.kit_grid.SetCellEditor(i * 2 + instr, instr_index+2, gridlib.GridCellNumberEditor(0, 100))
+                col_idx = i * 2 + instr
+                choice_editor = gridlib.GridCellChoiceEditor(get_complete_instrument_list(), False)
+                #choice_editor.SetText(get_instrument_name(pad.get_patch(instr)))
+                self.kit_grid.SetCellEditor(col_idx, instr_index_offset+0, choice_editor)
+                self.kit_grid.SetCellValue(col_idx, instr_index_offset+0, get_instrument_name_with_index(pad.get_patch(instr)))
+                self.kit_grid.SetCellValue(col_idx, instr_index_offset+1, str(pad.get_volume(instr)))
+                self.kit_grid.SetCellEditor(col_idx, instr_index_offset+1, gridlib.GridCellNumberEditor(0, 100))
                 pitch = pad.get_pitch(instr)
-                self.kit_grid.SetCellValue(i * 2 + instr, instr_index+3, str(pitch))
-                self.kit_grid.SetCellEditor(i * 2 + instr, instr_index+3, gridlib.GridCellNumberEditor(-2400, 2400))
+                self.kit_grid.SetCellValue(col_idx, instr_index_offset+2, str(pitch))
+                self.kit_grid.SetCellEditor(col_idx, instr_index_offset+2, gridlib.GridCellNumberEditor(-2400, 2400))
                 pitch = pitch + get_instrument_pitch(pad.get_patch(instr))
-                real_note = hpd20.get_note_name(pitch / 100)
-                self.kit_grid.SetCellValue(i * 2 + instr, instr_index+4, str(real_note))
-                self.kit_grid.SetCellValue(i * 2 + instr, instr_index+5, str(pad.get_muffling(instr)))
-                self.kit_grid.SetCellEditor(i * 2 + instr, instr_index+5, gridlib.GridCellNumberEditor(0, 100))
-                self.kit_grid.SetCellValue(i * 2 + instr, instr_index+6, str(pad.get_color(instr)))
-                self.kit_grid.SetCellEditor(i * 2 + instr, instr_index+6, gridlib.GridCellNumberEditor(-50, 50))
-                self.kit_grid.SetCellValue(i * 2 + instr, instr_index+7, str(pad.get_sweep(instr)))
-                self.kit_grid.SetCellEditor(i * 2 + instr, instr_index+7, gridlib.GridCellNumberEditor(-100, 100))
-                self.kit_grid.SetCellValue(i * 2 + instr, instr_index+8, str(pad.get_ambientsend(instr)))
-                self.kit_grid.SetCellEditor(i * 2 + instr, instr_index+8, gridlib.GridCellNumberEditor(0, 127))
-                self.kit_grid.SetCellValue(i * 2 + instr, instr_index+9, str(pad.get_pan(instr)))
-                self.kit_grid.SetCellEditor(i * 2 + instr, instr_index+9, gridlib.GridCellNumberEditor(-15, 15))
+                real_note = hpd20.get_note_name((pitch+50) / 100)
+                self.kit_grid.SetCellValue(col_idx, instr_index_offset+3, str(real_note))
+                self.kit_grid.SetCellValue(col_idx, instr_index_offset+4, str(pad.get_muffling(instr)))
+                self.kit_grid.SetCellEditor(col_idx, instr_index_offset+4, gridlib.GridCellNumberEditor(0, 100))
+                self.kit_grid.SetCellValue(col_idx, instr_index_offset+5, str(pad.get_color(instr)))
+                self.kit_grid.SetCellEditor(col_idx, instr_index_offset+5, gridlib.GridCellNumberEditor(-50, 50))
+                self.kit_grid.SetCellValue(col_idx, instr_index_offset+6, str(pad.get_sweep(instr)))
+                self.kit_grid.SetCellEditor(col_idx, instr_index_offset+6, gridlib.GridCellNumberEditor(-100, 100))
+                self.kit_grid.SetCellValue(col_idx, instr_index_offset+7, str(pad.get_ambientsend(instr)))
+                self.kit_grid.SetCellEditor(col_idx, instr_index_offset+7, gridlib.GridCellNumberEditor(0, 127))
+                self.kit_grid.SetCellValue(col_idx, instr_index_offset+8, str(pad.get_pan(instr)))
+                self.kit_grid.SetCellEditor(col_idx, instr_index_offset+8, gridlib.GridCellNumberEditor(-15, 15))
 
     def load_kit(self, event):
         openFileDialog = wx.FileDialog(self, "Load Kit to current set", self.default_kits_dir, "",

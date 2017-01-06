@@ -8,6 +8,10 @@ class MemoryOp:
         return value
 
     @staticmethod
+    def set_int8(memory_block, index, value):
+        memory_block[index] = value
+
+    @staticmethod
     def get_unsigned_int8(memory_block, index):
         value = memory_block[index]
         return value

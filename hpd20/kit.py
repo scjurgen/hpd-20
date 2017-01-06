@@ -19,6 +19,18 @@ class Kit:
     def sub_name(self):
         return MemoryOp.get_string(self.memory_block, SUBNAME_INDEX, 16)
 
+    def get_volume(self):
+        return MemoryOp.get_unsigned_int8(self.memory_block, VOL_INDEX)
+
+    def get_hh_volume(self):
+        return MemoryOp.get_unsigned_int8(self.memory_block, HH_VOL_INDEX)
+
+    def get_balance(self):
+        return MemoryOp.get_int8(self.memory_block, BALANCE_INDEX)
+
+    def get_pad_sensitvity(self):
+        return MemoryOp.get_int8(self.memory_block, PAD_SENSITIVITY)
+
     def save(self, fh):
         fh.write(self.memory_block)
 
