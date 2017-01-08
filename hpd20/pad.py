@@ -58,11 +58,14 @@ class Pad:
     def get_ambientsend(self, layer):
         return self.memory_block[Pad.AMB_INDEX + layer]
 
+    def set_ambientsend(self, layer, value):
+        self.memory_block[Pad.AMB_INDEX + layer] = value
+
     def get_muffling(self, layer):
         return self.memory_block[Pad.MUFFLING_INDEX + layer]
 
     def set_muffling(self, layer, value):
-        self.memory_block[Pad.MUFFLING_INDEX + layer] =  value
+        self.memory_block[Pad.MUFFLING_INDEX + layer] = value
 
     def get_patch(self, layer):
         return MemoryOp.get_unsigned_int16(self.memory_block, Pad.PATCH_INDEX + layer * 2)

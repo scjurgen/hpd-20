@@ -34,6 +34,8 @@ TODO UserInterface
 
 - add apply button, ask user if pad changes should be applied
 
+- cents values with symbols ♭♮♯ - + (quarter note) v ^ slightly up/down
+
 Refactor UI Control
 -------------------
 

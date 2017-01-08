@@ -9,13 +9,14 @@ import wx
 import wx.grid as gridlib
 
 import hpd20
+from scaledialog import SetScaleDialog
 
 from instrumentname import get_instrument_pitch, get_instrument_name, get_complete_instrument_list, \
     get_instrument_name_with_index
 
 wx.SetDefaultPyEncoding('utf-8')
 
-class MyForm(wx.Frame):
+class HpdForm(wx.Frame):
 
     def load_config(self):
         self.config = ConfigParser.RawConfigParser()
@@ -58,10 +59,15 @@ class MyForm(wx.Frame):
         self.main_param_sizer = wx.BoxSizer(wx.HORIZONTAL)
         self.cb_kit = wx.ComboBox(self.panel, -1, choices=self.hpd.kits.get_list_of_kits(), style=wx.TE_PROCESS_ENTER|wx.CB_READONLY)
         self.cb_kit.Bind(wx.EVT_COMBOBOX, self.select_kit)
-        self.cb_kit_name = wx.TextCtrl(self.panel, size=(300, -1), value="current kit name", style=wx.TE_PROCESS_ENTER)
+
+        self.cb_kit_name = wx.TextCtrl(self.panel, size=(200, -1), value="current kit name", style=wx.TE_PROCESS_ENTER)
         self.cb_kit.Bind(wx.EVT_CHAR, self.change_kit_name)
+        self.scale_dialog_button = wx.Button(self.panel, label="scale")
+        self.scale_dialog_button.Bind(wx.EVT_BUTTON, self.OnSetScaleDialog)
+
         self.main_param_sizer.Add(self.cb_kit)
         self.main_param_sizer.Add(self.cb_kit_name)
+        self.main_param_sizer.Add(self.scale_dialog_button)
 
         sizer = wx.BoxSizer(wx.VERTICAL)
         sizer.Add(self.main_param_sizer)
@@ -69,8 +75,10 @@ class MyForm(wx.Frame):
         self.panel.SetSizer(sizer)
 
     def select_kit(self, event):
+        self.retrieve_kit_values(self.current_kit)
         kit = self.cb_kit.GetCurrentSelection()
         self.fill_kit(kit)
+        self.current_kit = kit
         self.config.set('Settings', 'current_kit', kit)
         with open(self.config_filename, 'wb') as configfile:
             self.config.write(configfile)
@@ -153,19 +161,16 @@ class MyForm(wx.Frame):
             pad.set_fixvelo(int(self.kit_grid.GetCellValue(i * 2, 3)))
             pad.set_mute_group(int(self.kit_grid.GetCellValue(i * 2, 4)))
             pad.set_mono_poly(int(self.kit_grid.GetCellValue(i * 2, 5)))
-            '''
+
             for instr in range(2):
                 col_idx = i * 2 + instr
-                self.kit_grid.SetCellValue(col_idx, instr_index_offset+0, get_instrument_name_with_index(pad.get_patch(instr)))
-                self.kit_grid.SetCellValue(col_idx, instr_index_offset+1, str(pad.get_volume(instr)))
-                self.kit_grid.SetCellValue(col_idx, instr_index_offset+2, str(pitch))
-                self.kit_grid.SetCellValue(col_idx, instr_index_offset+3, str(real_note))
-                self.kit_grid.SetCellValue(col_idx, instr_index_offset+4, str(pad.get_muffling(instr)))
-                self.kit_grid.SetCellValue(col_idx, instr_index_offset+5, str(pad.get_color(instr)))
-                self.kit_grid.SetCellValue(col_idx, instr_index_offset+6, str(pad.get_sweep(instr)))
-                self.kit_grid.SetCellValue(col_idx, instr_index_offset+7, str(pad.get_ambientsend(instr)))
-                self.kit_grid.SetCellValue(col_idx, instr_index_offset+8, str(pad.get_pan(instr)))
-            '''
+                pad.set_volume(instr, int(self.kit_grid.GetCellValue(col_idx, instr_index_offset+1)))
+                pad.set_pitch(instr, int(self.kit_grid.GetCellValue(col_idx, instr_index_offset+2)))
+                pad.set_muffling(instr, int(self.kit_grid.GetCellValue(col_idx, instr_index_offset+4)))
+                pad.set_color(instr, int(self.kit_grid.GetCellValue(col_idx, instr_index_offset+5)))
+                pad.set_sweep(instr, int(self.kit_grid.GetCellValue(col_idx, instr_index_offset+6)))
+                pad.set_ambientsend(instr, int(self.kit_grid.GetCellValue(col_idx, instr_index_offset+7)))
+                pad.set_pan(instr, int(self.kit_grid.GetCellValue(col_idx, instr_index_offset+8)))
 
     def fill_kit(self, kit):
         instr_index_offset = 6
@@ -209,6 +214,14 @@ class MyForm(wx.Frame):
                 self.kit_grid.SetCellValue(col_idx, instr_index_offset+8, str(pad.get_pan(instr)))
                 self.kit_grid.SetCellEditor(col_idx, instr_index_offset+8, gridlib.GridCellNumberEditor(-15, 15))
 
+
+    def OnSetScaleDialog(self, e):
+        scale_dialog = SetScaleDialog(None, title='Scale to Kit Dialog')
+        scale_dialog.set_hpd(self.hpd, self.current_kit)
+        scale_dialog.ShowModal()
+        scale_dialog.Destroy()
+        self.fill_kit(self.current_kit)
+
     def load_kit(self, event):
         openFileDialog = wx.FileDialog(self, "Load Kit to current set", self.default_kits_dir, "",
                                        "hpd-20 Kit (*.kit)|*.kit",
@@ -220,7 +233,7 @@ class MyForm(wx.Frame):
         self.config.set('Settings', 'kits_directory', os.path.dirname(path))
         with open(self.config_filename, 'wb') as configfile:
             self.config.write(configfile)
-        self.fill_kit(2)
+        self.fill_kit(self.current_kit)
 
     def save_kit(self, event):
         openFileDialog = wx.FileDialog(self, "Save Kit", self.default_kits_dir, "",
@@ -233,7 +246,6 @@ class MyForm(wx.Frame):
         self.config.set('Settings', 'kits_directory', os.path.dirname(path))
         with open(self.config_filename, 'wb') as configfile:
             self.config.write(configfile)
-        self.fill_kit(3)
 
     def load_memory_backup(self, event):
         openFileDialog = wx.FileDialog(self, "Open a memory dump", self.default_backup_dir, "",
@@ -247,6 +259,7 @@ class MyForm(wx.Frame):
         with open(self.config_filename, 'wb') as configfile:
             self.config.write(configfile)
         self.hpd = hpd20.hpd(str(path))
+        self.fill_kit(self.current_kit)
 
     def save_memory_backup(self, event):
         saveFileDialog = wx.FileDialog(self, "Save memory dump as", self.default_backup_dir, "",
@@ -263,7 +276,7 @@ class MyForm(wx.Frame):
 
 def run_main():
     app = wx.App(False)
-    frame = MyForm('Backup/BKUP-022.HS0')
+    frame = HpdForm('Backup/BKUP-022.HS0')
     frame.Show()
     app.MainLoop()
 

@@ -1720,11 +1720,13 @@ def get_instrument_name(index):
     except:
         return "User Instrument"
 
+
 def get_instrument_name_with_index(index):
     try:
-        return str(index+1) + " " + instruments[index][1]
+        return str(index + 1) + " " + instruments[index][1]
     except:
         return "User Instrument"
+
 
 def get_internal_map(index):
     try:
@@ -1736,7 +1738,7 @@ def get_internal_map(index):
 def get_complete_instrument_list():
     l = []
     for key, value in instruments.iteritems():
-        v = str(key+1) + " " + value[1]
+        v = str(key + 1) + " " + value[1]
         l.append(v)
     return l
 

@@ -1,3 +1,9 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+
+
+
 from os import mkdir
 
 import sys
@@ -12,6 +18,12 @@ from scales import Scale
 
 version = "0.0.6"
 
+
+class Semantics:
+    pad_names = ['M1 ◵', 'M2 ◶', 'M3 ◴', 'M4 ◷', 'M5 ●',
+                 'S1', 'S2', 'S3', 'S4',
+                 'S5', 'S6', 'S7', 'S8',
+                 'D-Beam', 'Head', 'Rim', 'HH']
 
 def get_note_name(value):
     notes = [' C', 'C#', ' D', 'Eb',
@@ -130,7 +142,6 @@ class hpd:
                         pad_index + 1)] = pad.memory_block
 
     def apply_scale(self, instrument_name, scale, mode, first_note, kit_index, pad_list):
-        kit_index -= 1  # zero based
         instruments = Scale.get_scale(instrument_name, first_note, len(pad_list), scale, mode)
 
         for i in range(len(pad_list)):

@@ -9,7 +9,7 @@ class MemoryOp:
 
     @staticmethod
     def set_int8(memory_block, index, value):
-        memory_block[index] = value
+        memory_block[index] = value & 0xff
 
     @staticmethod
     def get_unsigned_int8(memory_block, index):
