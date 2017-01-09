@@ -30,20 +30,20 @@ Roadmap
 
 - (/) retrieve note for melodic pads (instruments 348-433
 
-- (x) fetch basic information from kit and pad
+- (/) fetch basic information from kit and pad
 
 - (x) patch scales on instrument B
 
 - (x) copy kits around
 
-- (x) UI the whole stuff (tkinter?)
+- (/) UI the whole stuff (tkinter?)
 
 - (x) publish on various musician sites
 
 Macro operations todo
 ---------------------
 
-- patch scales
+- (/) patch scales
 
 - pan over a pad-set
 
@@ -56,4 +56,5 @@ Generic todo
 get more pitches from some instruments that are for now presumed in C (i.e. Roto Toms, Cowbell)
 
 add unit-tests for the inplace memory manipulations
+
 

@@ -1,7 +1,7 @@
 
 import unittest
 
-from hpd20.scales import Scale
+from scales import Scale
 
 
 class ScalesTest(unittest.TestCase):
