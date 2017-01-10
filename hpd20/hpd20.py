@@ -16,7 +16,7 @@ import hashlib
 
 from scales import Scale
 
-version = "0.0.6"
+version = "0.0.7"
 
 
 class Semantics:
@@ -154,8 +154,6 @@ class hpd:
             self.apply_pad(final_pad_index)
 
 
-
-
 def usage(argv):
     print("Usage: " + argv[0] + "[OPTIONS] <backup-file> [COMMAND]")
     print("Version: " + version)
@@ -167,6 +165,7 @@ def usage(argv):
     print("  show chains")
     print("  show kits")
     print("  show kit #")
+
 
 def run_main():
     argv = list()
@@ -215,21 +214,3 @@ def run_main():
 
 if __name__ == "__main__":
     run_main()
-
-# some tests for now
-'''
-hpd = hpd('Backup/BKUP-022.HS0')
-
-hpd.showkit(130)
-hpd.showkit(151)
-hpd.showkit(53)
-hpd.showkit(130)
-hpd.apply_scale("Glockenspiel", "major", Scale.IONIAN, 72+12, 130, melody_pad_pattern["Alternate-LR"])
-hpd.showkit(130)
-# hpd.load_kit(188, "kits/Brushes.kit")
-hpd.save_file('BKUP-001.HS0')
-
-# mkdir('kits')
-# hpd.save_all_kits()
-'''
-

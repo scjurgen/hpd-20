@@ -17,7 +17,7 @@ else:
 
 setup(
     name='hpd20',
-    version='0.0.6',
+    version='0.0.7',
     author='Jürgen Schwietering',
     author_email='scjurgen@yahoo.com',
     description='hpd-20 simple patch editor and librarian',
@@ -28,7 +28,7 @@ setup(
     packages=['hpd20', ],
     include_package_data=True,
     classifiers=[
-        'Development Status :: 1 - Planning',
+        'Development Status :: 3 - Alpha',
         'Environment :: Other Environment',
         'Intended Audience :: End Users/Desktop',
         'Topic :: Software Development :: Build Tools',
@@ -39,6 +39,7 @@ setup(
     #py_modules=['hpd20'],
     # https://packaging.python.org/en/latest/requirements.html
     #install_requires=['wx'],
+    install_requires=['ConfigParser',],
     #packages=find_packages(exclude=['contrib', 'docs', 'tests']),
     entry_points={
         'console_scripts': [
