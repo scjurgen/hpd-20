@@ -50,13 +50,14 @@ class HpdForm(wx.Frame):
         self.trigger_type = ['shot', 'gate', 'alt']
 
         self.load_config()
-
-        self.hpd = hpd20.hpd(file_name)
         wx.Frame.__init__(self, parent=None, title="hpd-20 Editor", size=(1200, 830))
         self.panel = wx.Panel(self)
         self.layout_menu()
         self.layout_kit_grid()
         self.main_param_sizer = wx.BoxSizer(wx.HORIZONTAL)
+        file_name = self.select_memory_backup()
+        self.hpd = hpd20.hpd(file_name)
+
         self.cb_kit = wx.ComboBox(self.panel, -1, choices=self.hpd.kits.get_list_of_kits(), style=wx.TE_PROCESS_ENTER|wx.CB_READONLY)
         self.cb_kit.Bind(wx.EVT_COMBOBOX, self.select_kit)
 
@@ -73,6 +74,8 @@ class HpdForm(wx.Frame):
         sizer.Add(self.main_param_sizer)
         sizer.Add(self.kit_grid)
         self.panel.SetSizer(sizer)
+        self.fill_kit(self.current_kit)
+
 
     def select_kit(self, event):
         self.retrieve_kit_values(self.current_kit)
@@ -147,7 +150,6 @@ class HpdForm(wx.Frame):
                     self.kit_grid.SetCellBackgroundColour(i*2+1, col, color)
 
         self.kit_grid.SetColSize(6, 200)
-        self.fill_kit(self.current_kit)
 
     def retrieve_kit_values(self, kit):
         instr_index_offset = 6
@@ -247,18 +249,21 @@ class HpdForm(wx.Frame):
         with open(self.config_filename, 'wb') as configfile:
             self.config.write(configfile)
 
-    def load_memory_backup(self, event):
+    def select_memory_backup(self):
         openFileDialog = wx.FileDialog(self, "Open a memory dump", self.default_backup_dir, "",
                                        "hpd-20 Dump (*.HS0)|*.HS0",
                                        wx.FD_OPEN | wx.FD_FILE_MUST_EXIST)
         openFileDialog.ShowModal()
         path = openFileDialog.GetPath()
         openFileDialog.Destroy()
-        self.default_backup_dir = path
-        self.config.set('Settings', 'backup_directory', os.path.dirname(path))
+        return path
+
+    def load_memory_backup(self, event):
+        self.default_backup_dir = self.select_memory_backup()
+        self.config.set('Settings', 'backup_directory', os.path.dirname(self.default_backup_dir))
         with open(self.config_filename, 'wb') as configfile:
             self.config.write(configfile)
-        self.hpd = hpd20.hpd(str(path))
+        self.hpd = hpd20.hpd(str(self.default_backup_dir))
         self.fill_kit(self.current_kit)
 
     def save_memory_backup(self, event):
@@ -276,7 +281,7 @@ class HpdForm(wx.Frame):
 
 def run_main():
     app = wx.App(False)
-    frame = HpdForm('Backup/BKUP-022.HS0')
+    frame = HpdForm('Backup/BKUP-022.HS0asd')
     frame.Show()
     app.MainLoop()
 

@@ -17,7 +17,7 @@ else:
 
 setup(
     name='hpd20',
-    version='0.0.7',
+    version='0.0.8',
     author='Jürgen Schwietering',
     author_email='scjurgen@yahoo.com',
     description='hpd-20 simple patch editor and librarian',
