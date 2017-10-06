@@ -41,9 +41,9 @@ Refactor UI Control
 
 - put the grid in own class/file
 
-- more intelligent setting of grid paramaters (now a big blob difficult to maintain)
+- more intelligent setting of grid parameters (now a big blob difficult to maintain)
 
-- show pitch with cents devivation
+- show pitch with cents deviation
 
 - config out of ui (gets own model)
 

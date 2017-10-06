@@ -27,7 +27,7 @@ class Scale:
         "Vibraphone": [409, 417],
         "Marimba": [418, 427],
         "Glockenspiel": [428, 433],
-        "Tublar Bells": [434, 435]
+        "Tublar Bells": [434, 435]    ## don't change, named as in Roland set
     }
 
     scale_patterns = {

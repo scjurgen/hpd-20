@@ -1,3 +1,7 @@
+#!/usr/bin/env python2.7
+# -*- coding: utf-8 -*-
+
+
 instruments = {
     0: [-60 * 100, "Conga L *p"],
     1: [-60 * 100, "Conga R *p"],
@@ -1715,24 +1719,17 @@ for i in range(850):
 
 
 def get_instrument_name(index):
-    try:
+    if index in instruments:
         return instruments[index][1]
-    except:
-        return "User Instrument"
+    return "User Instrument"
 
 
 def get_instrument_name_with_index(index):
-    try:
-        return str(index + 1) + " " + instruments[index][1]
-    except:
-        return "User Instrument"
+    return instruments.get(index,  [0,"User Instrument #" + str(index-850)])[1]
 
 
 def get_internal_map(index):
-    try:
-        return unknown_map[index]
-    except:
-        return 65535
+    return unknown_map.get(index, 65535)
 
 
 def get_complete_instrument_list():
@@ -1744,7 +1741,5 @@ def get_complete_instrument_list():
 
 
 def get_instrument_pitch(index):
-    try:
-        return instruments[index][0]
-    except:
-        return 60
+    return instruments.get(index,[60,])[0]
+

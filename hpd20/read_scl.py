@@ -30,18 +30,15 @@ def read_scale(file_name):
                 else:
                     value = float(line)
                 items.append(value)
-
+    print ("    ['"+file_name+"',");
+    print ("        '"+comment+"',");
+    print ("        "+str(count) + ",");
+    print ("        "+str(items_org));
+    print ("        "+str(items));
+    print ("    ],")
     return [file_name, comment, count+1, items_org, items]
 
 if __name__ == "__main__":
-    c = 0
-    while c+1 < len(sys.argv):
-        c += 1
-        try:
-            print("\t" + str(read_scale(sys.argv[c])) + ",")
-        except:
-            pass
 
-
-
-
+    for index, item in enumerate(sys.argv[1:]):
+        __ = read_scale(sys.argv[index+1])

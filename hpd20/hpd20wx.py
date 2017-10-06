@@ -14,7 +14,6 @@ from scaledialog import SetScaleDialog
 from instrumentname import get_instrument_pitch, get_instrument_name, get_complete_instrument_list, \
     get_instrument_name_with_index
 
-wx.SetDefaultPyEncoding('utf-8')
 
 class HpdForm(wx.Frame):
 
@@ -60,14 +59,17 @@ class HpdForm(wx.Frame):
 
         self.cb_kit = wx.ComboBox(self.panel, -1, choices=self.hpd.kits.get_list_of_kits(), style=wx.TE_PROCESS_ENTER|wx.CB_READONLY)
         self.cb_kit.Bind(wx.EVT_COMBOBOX, self.select_kit)
+        self.cb_kit.SetSelection(self.current_kit)
 
         self.cb_kit_name = wx.TextCtrl(self.panel, size=(200, -1), value="current kit name", style=wx.TE_PROCESS_ENTER)
         self.cb_kit.Bind(wx.EVT_CHAR, self.change_kit_name)
+        self.cb_kit_subname = wx.TextCtrl(self.panel, size=(200, -1), value="current kit sub name", style=wx.TE_PROCESS_ENTER)
         self.scale_dialog_button = wx.Button(self.panel, label="scale")
         self.scale_dialog_button.Bind(wx.EVT_BUTTON, self.OnSetScaleDialog)
 
         self.main_param_sizer.Add(self.cb_kit)
         self.main_param_sizer.Add(self.cb_kit_name)
+        self.main_param_sizer.Add(self.cb_kit_subname)
         self.main_param_sizer.Add(self.scale_dialog_button)
 
         sizer = wx.BoxSizer(wx.VERTICAL)
@@ -150,6 +152,7 @@ class HpdForm(wx.Frame):
                     self.kit_grid.SetCellBackgroundColour(i*2+1, col, color)
 
         self.kit_grid.SetColSize(6, 200)
+        self.kit_grid.SetColSize(0, 80)
 
     def retrieve_kit_values(self, kit):
         instr_index_offset = 6
@@ -175,6 +178,10 @@ class HpdForm(wx.Frame):
                 pad.set_pan(instr, int(self.kit_grid.GetCellValue(col_idx, instr_index_offset+8)))
 
     def fill_kit(self, kit):
+        hpdkit = self.hpd.kits.get_kit(kit)
+        self.cb_kit_name.SetLabel(hpdkit.main_name().strip())
+        self.cb_kit_subname.SetLabel(hpdkit.sub_name().strip())
+
         instr_index_offset = 6
         for i in range(17):
             pad = self.hpd.pads.get_pad(kit * hpd20.hpd.PADS_PER_KIT + i)
@@ -185,8 +192,13 @@ class HpdForm(wx.Frame):
                 for j in range(len(self.columns)):
                     self.kit_grid.SetCellTextColour(i * 2 + 1, j, wx.BLACK)
             self.kit_grid.SetCellValue(i * 2, 0, self.layer_type[pad.get_layer()])
+            choice_editor = gridlib.GridCellChoiceEditor(self.layer_type, False)
+            self.kit_grid.SetCellEditor(i * 2, 0, choice_editor)
+
             self.kit_grid.SetCellValue(i * 2, 1, str(pad.get_velofade()))
             self.kit_grid.SetCellValue(i * 2, 2, str(self.trigger_type[pad.get_trigger()]))
+            choice_editor = gridlib.GridCellChoiceEditor(self.trigger_type, False)
+            self.kit_grid.SetCellEditor(i * 2, 2, choice_editor)
             self.kit_grid.SetCellValue(i * 2, 3, str(pad.get_fixvelo()))
             self.kit_grid.SetCellValue(i * 2, 4, str(pad.get_mute_group()))
             self.kit_grid.SetCellEditor(i * 2, 4, gridlib.GridCellNumberEditor(0, 8))

@@ -142,7 +142,7 @@ class hpd:
         self.memoryBlock[hpd.PAD_MEMINDEX + hpd.PAD_MEMSIZE * pad_index:hpd.PAD_MEMINDEX + hpd.PAD_MEMSIZE * (
                         pad_index + 1)] = pad.memory_block
 
-    def apply_scale(self, instrument_name, scale, mode, first_note, kit_index, pad_list):
+    def apply_scale(self, layer, instrument_name, scale, mode, first_note, kit_index, pad_list):
         instruments = Scale.get_scale(instrument_name, first_note, len(pad_list), scale, mode)
 
         for i in range(len(pad_list)):
@@ -150,8 +150,8 @@ class hpd:
             instrument_number = instruments[i][0]
             instrument_pitch = instruments[i][1]
             pad = self.pads.get_pad(final_pad_index)
-            pad.set_patch(0, instrument_number)
-            pad.set_pitch(0, instrument_pitch)
+            pad.set_patch(layer, instrument_number)
+            pad.set_pitch(layer, instrument_pitch)
             self.apply_pad(final_pad_index)
 
 

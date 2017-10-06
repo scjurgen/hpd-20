@@ -4,6 +4,7 @@
 import wx
 
 from hpd20 import Semantics
+from ethnic_scales import list_of_scales_with_n_notes
 from instrumentname import get_instrument_name, get_instrument_pitch
 from melodypadpattern import melody_pad_pattern
 from scales import Scale
@@ -24,11 +25,25 @@ class SetScaleDialog(wx.Dialog):
         self.panel = wx.Panel(self)
         top_sizer = wx.BoxSizer(wx.VERTICAL)
 
+        label_layer = wx.StaticText(self.panel,  label="A or B")
+        self.cb_layer = wx.ComboBox(self.panel,  0, choices=['Instrument A', 'Instrument B'], style=wx.TE_PROCESS_ENTER | wx.CB_READONLY)
+        # self.cb_layer.Bind(wx.EVT_COMBOBOX, self.select_layer)
+
         label_instrument = wx.StaticText(self.panel,  label="Instrument")
         msets = Scale.melodic_sets.keys()
         msets.sort()
         self.cb_instrument = wx.ComboBox(self.panel,  0, choices=msets, style=wx.TE_PROCESS_ENTER | wx.CB_READONLY)
         self.cb_instrument.Bind(wx.EVT_COMBOBOX, self.select_instrument)
+
+
+        main_scale_scheme = ['well tempered']
+        for i in range(4, 17):
+            main_scale_scheme.append(str(i) + ' note scale (with octave)')
+            main_scale_scheme.append(str(i) + ' note scale (no octave)')
+
+        label_mainscale = wx.StaticText(self.panel,  label="Mainscale")
+        self.cb_mainscale = wx.ComboBox(self.panel,  0, choices=main_scale_scheme, style=wx.TE_PROCESS_ENTER | wx.CB_READONLY)
+        self.cb_mainscale.Bind(wx.EVT_COMBOBOX, self.select_mainscale)
 
         scales = Scale.scale_patterns.keys()
         scales.sort()
@@ -60,14 +75,16 @@ class SetScaleDialog(wx.Dialog):
         horizontal_box_sizer.Add(setButton)
         horizontal_box_sizer.Add(closeButton, flag=wx.LEFT, border=5)
 
-        fgs = wx.FlexGridSizer(5, 2, 9, 10)
+        fgs = wx.FlexGridSizer(7, 2, 9, 10)
 
-        fgs.AddMany([(label_instrument, 1, wx.EXPAND), (self.cb_instrument, 1, wx.EXPAND),
-                            (label_scale, 1, wx.EXPAND), (self.cb_scale, 1, wx.EXPAND),
-                            (label_mode, 1, wx.EXPAND), (self.cb_mode, 1, wx.EXPAND),
-                            (label_key, 1, wx.EXPAND), (self.cb_key, 1, wx.EXPAND),
-                            (label_pattern, 1, wx.EXPAND), (self.cb_pad_pattern, 1, wx.EXPAND)
-                            ])
+        fgs.AddMany([(label_layer, 1, wx.EXPAND), (self.cb_layer, 1, wx.EXPAND),
+                     (label_instrument, 1, wx.EXPAND), (self.cb_instrument, 1, wx.EXPAND),
+                     (label_mainscale, 1, wx.EXPAND), (self.cb_mainscale, 1, wx.EXPAND),
+                     (label_scale, 1, wx.EXPAND), (self.cb_scale, 1, wx.EXPAND),
+                     (label_mode, 1, wx.EXPAND), (self.cb_mode, 1, wx.EXPAND),
+                     (label_key, 1, wx.EXPAND), (self.cb_key, 1, wx.EXPAND),
+                     (label_pattern, 1, wx.EXPAND), (self.cb_pad_pattern, 1, wx.EXPAND)
+                     ])
 
         self.result_grid = gridlib.Grid(self.panel)
         self.result_grid.CreateGrid(17, 4)
@@ -84,6 +101,9 @@ class SetScaleDialog(wx.Dialog):
         self.select_pad_pattern(None)
 
     def copy_current_selection_to_result_grid(self, event):
+        if self.cb_scale.GetSelection() == -1:
+            return
+        layer = self.cb_layer.GetStringSelection()
         instrument = self.cb_instrument.GetStringSelection()
         pad_pattern = self.cb_pad_pattern.GetStringSelection()
         note_count = len(melody_pad_pattern[pad_pattern])
@@ -112,6 +132,26 @@ class SetScaleDialog(wx.Dialog):
     def show_result(self):
         self.copy_current_selection_to_result_grid(None)
 
+    def select_mainscale(self, event):
+        mainscale_index = self.cb_mainscale.GetSelection()
+        if mainscale_index == 0:
+            scales = Scale.scale_patterns.keys()
+            scales.sort()
+        else:
+            notes = 4+(mainscale_index-1)/2
+            l_of_scales = list_of_scales_with_n_notes(notes)
+            scales = []
+            for sc in l_of_scales:
+                if mainscale_index % 2 == 0:
+                    if sc[4][len(sc[4])-1] == 2.0:
+                        scales.append(sc[1])
+                if mainscale_index % 2 == 1:
+                    if sc[4][len(sc[4]) - 1] != 2.0:
+                        scales.append(sc[1])
+        self.cb_scale.Clear()
+        self.cb_scale.AppendItems(scales)
+        self.copy_current_selection_to_result_grid(None)
+
     def select_scale(self, event):
         self.copy_current_selection_to_result_grid(None)
 
@@ -138,13 +178,18 @@ class SetScaleDialog(wx.Dialog):
         self.copy_current_selection_to_result_grid(None)
 
     def OnOk(self, e):
+        print("layer=" + self.cb_layer.GetStringSelection())
+        if self.cb_layer.GetStringSelection() == 'Instrument B':
+            layer = 1
+        else:
+            layer = 0
         instrument = self.cb_instrument.GetStringSelection()
         pad_pattern = self.cb_pad_pattern.GetStringSelection()
         current_pattern = melody_pad_pattern[pad_pattern]
         scale_name = self.cb_scale.GetStringSelection()
         first_note = int(Scale.get_height_of_note(self.cb_key.GetStringSelection()))
         mode = int(self.cb_mode.GetStringSelection())
-        self.hpd.apply_scale(instrument, scale_name, mode, first_note, int(self.current_kit), current_pattern)
+        self.hpd.apply_scale(layer, instrument, scale_name, mode, first_note, int(self.current_kit), current_pattern)
         self.Close()
         self.Destroy()
 
