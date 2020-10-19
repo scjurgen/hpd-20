@@ -1,9 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-
-
-
 from os import mkdir
 
 import sys
@@ -31,7 +28,7 @@ def get_note_name(value):
              'Ab', ' A', 'Bb', ' B']
     if value < 0:
         return "--"
-    return notes[value % len(notes)] + str(int((value - 2*len(notes)) / len(notes)))
+    return notes[int(value % len(notes))] + str(int((value - 2*len(notes)) / len(notes)))
 
 
 class hpd:
@@ -51,8 +48,8 @@ class hpd:
 
     def __init__(self, file_name):
         print("loading file {0}".format(file_name))
-        fh = file(file_name, 'rb')
-        memory_block = bytearray(fh.read())
+        with open(file_name, 'rb') as fh:
+            memory_block = bytearray(fh.read())
         self.md5_memory = memory_block[-16:]
         print(" ".join(hex(n) for n in self.md5_memory))
 

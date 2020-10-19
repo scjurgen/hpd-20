@@ -1,2 +1,7 @@
-code for quick analysis only
+
+# c-code
+
+code for reverse engineering patch data
+
+
 

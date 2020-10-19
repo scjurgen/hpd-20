@@ -1734,7 +1734,7 @@ def get_internal_map(index):
 
 def get_complete_instrument_list():
     l = []
-    for key, value in instruments.iteritems():
+    for key, value in instruments.items():
         v = str(key + 1) + " " + value[1]
         l.append(v)
     return l

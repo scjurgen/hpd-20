@@ -30,11 +30,10 @@ class SetScaleDialog(wx.Dialog):
         # self.cb_layer.Bind(wx.EVT_COMBOBOX, self.select_layer)
 
         label_instrument = wx.StaticText(self.panel,  label="Instrument")
-        msets = Scale.melodic_sets.keys()
+        msets = list(Scale.melodic_sets.keys())
         msets.sort()
         self.cb_instrument = wx.ComboBox(self.panel,  0, choices=msets, style=wx.TE_PROCESS_ENTER | wx.CB_READONLY)
         self.cb_instrument.Bind(wx.EVT_COMBOBOX, self.select_instrument)
-
 
         main_scale_scheme = ['well tempered']
         for i in range(4, 17):
@@ -45,7 +44,7 @@ class SetScaleDialog(wx.Dialog):
         self.cb_mainscale = wx.ComboBox(self.panel,  0, choices=main_scale_scheme, style=wx.TE_PROCESS_ENTER | wx.CB_READONLY)
         self.cb_mainscale.Bind(wx.EVT_COMBOBOX, self.select_mainscale)
 
-        scales = Scale.scale_patterns.keys()
+        scales = list(Scale.scale_patterns.keys())
         scales.sort()
         label_scale = wx.StaticText(self.panel,  label="Scale")
         self.cb_scale = wx.ComboBox(self.panel,  0, choices=scales, style=wx.TE_PROCESS_ENTER | wx.CB_READONLY)
@@ -61,7 +60,7 @@ class SetScaleDialog(wx.Dialog):
         self.cb_key.SetSelection(3*12)  # set default selection to first C4
 
         label_pattern = wx.StaticText(self.panel, label="Pad layout")
-        mpat = melody_pad_pattern.keys()
+        mpat = list(melody_pad_pattern.keys())
         mpat.sort()
         self.cb_pad_pattern = wx.ComboBox(self.panel,  0, choices=mpat, style=wx.TE_PROCESS_ENTER | wx.CB_READONLY)
         self.cb_pad_pattern.Bind(wx.EVT_COMBOBOX, self.select_pad_pattern)
@@ -135,7 +134,7 @@ class SetScaleDialog(wx.Dialog):
     def select_mainscale(self, event):
         mainscale_index = self.cb_mainscale.GetSelection()
         if mainscale_index == 0:
-            scales = Scale.scale_patterns.keys()
+            scales = list(Scale.scale_patterns.keys())
             scales.sort()
         else:
             notes = 4+(mainscale_index-1)/2

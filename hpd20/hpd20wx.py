@@ -1,9 +1,9 @@
-#!/usr/bin/env python2.7
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 
 # http://jenyay.net/Programming/WxSizer
-import ConfigParser
+import configparser
 import os
 import wx
 import wx.grid as gridlib
@@ -18,7 +18,7 @@ from instrumentname import get_instrument_pitch, get_instrument_name, get_comple
 class HpdForm(wx.Frame):
 
     def load_config(self):
-        self.config = ConfigParser.RawConfigParser()
+        self.config = configparser.RawConfigParser()
         self.config.add_section('Settings')
         self.config_filename = os.path.expanduser('~/.hpd.cfg')
         try:
@@ -293,7 +293,7 @@ class HpdForm(wx.Frame):
 
 def run_main():
     app = wx.App(False)
-    frame = HpdForm('Backup/BKUP-022.HS0asd')
+    frame = HpdForm('Backup/BKUP-022.HS0')
     frame.Show()
     app.MainLoop()
 

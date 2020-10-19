@@ -6,7 +6,7 @@ from codecs import open
 from os import path
 
 
-long_description = 'Raumfeld controlled by python scripts'
+long_description = 'HPD-20 patch editor and librarian'
 here = path.abspath(path.dirname(__file__))
 s = path.join(here, 'README.rst')
 
@@ -17,7 +17,7 @@ else:
 
 setup(
     name='hpd20',
-    version='0.0.8',
+    version='0.0.9',
     author='Jürgen Schwietering',
     author_email='scjurgen@yahoo.com',
     description='hpd-20 simple patch editor and librarian',
@@ -34,12 +34,12 @@ setup(
         'Topic :: Software Development :: Build Tools',
         'Topic :: Multimedia :: Sound/Audio :: Editors',
         'License :: OSI Approved :: GNU General Public License (GPL)',
-        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3.8',
     ],
     #py_modules=['hpd20'],
     # https://packaging.python.org/en/latest/requirements.html
     #install_requires=['wx'],
-    install_requires=['ConfigParser',],
+    install_requires=['configparser','wxPython','setuptools'],
     #packages=find_packages(exclude=['contrib', 'docs', 'tests']),
     entry_points={
         'console_scripts': [
