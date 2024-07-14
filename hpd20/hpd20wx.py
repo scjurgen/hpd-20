@@ -197,7 +197,11 @@ class HpdForm(wx.Frame):
             self.kit_grid.SetCellEditor(i * 2, 0, choice_editor)
 
             self.kit_grid.SetCellValue(i * 2, 1, str(pad.get_velofade()))
-            self.kit_grid.SetCellValue(i * 2, 2, str(self.trigger_type[pad.get_trigger()]))
+            trigger = pad.get_trigger()
+            try:
+                self.kit_grid.SetCellValue(i * 2, 2, str(self.trigger_type[trigger]))
+            except:
+                pass
             choice_editor = gridlib.GridCellChoiceEditor(self.trigger_type, False)
             self.kit_grid.SetCellEditor(i * 2, 2, choice_editor)
             self.kit_grid.SetCellValue(i * 2, 3, str(pad.get_fixvelo()))

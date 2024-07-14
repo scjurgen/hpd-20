@@ -10,27 +10,28 @@ BALANCE_INDEX = 67
 PAD_SENSITIVITY = 55
 
 class Kit:
-    def __init__(self, memory_block):
+    def __init__(self, memory_block, index):
+        self.index = index
         self.memory_block = memory_block
 
     def main_name(self):
-        value = MemoryOp.get_string(self.memory_block, NAME_INDEX, 12)
+        value = MemoryOp.get_string(self.memory_block, self.index+NAME_INDEX, 12)
         return value
 
     def sub_name(self):
-        return str(MemoryOp.get_string(self.memory_block, SUBNAME_INDEX, 16))
+        return str(MemoryOp.get_string(self.memory_block, self.index+SUBNAME_INDEX, 16))
 
     def get_volume(self):
-        return MemoryOp.get_unsigned_int8(self.memory_block, VOL_INDEX)
+        return MemoryOp.get_unsigned_int8(self.memory_block, self.index+VOL_INDEX)
 
     def get_hh_volume(self):
-        return MemoryOp.get_unsigned_int8(self.memory_block, HH_VOL_INDEX)
+        return MemoryOp.get_unsigned_int8(self.memory_block, self.index+HH_VOL_INDEX)
 
     def get_balance(self):
-        return MemoryOp.get_int8(self.memory_block, BALANCE_INDEX)
+        return MemoryOp.get_int8(self.memory_block, self.index+BALANCE_INDEX)
 
     def get_pad_sensitvity(self):
-        return MemoryOp.get_int8(self.memory_block, PAD_SENSITIVITY)
+        return MemoryOp.get_int8(self.memory_block, self.index+PAD_SENSITIVITY)
 
     def save(self, fh):
         fh.write(self.memory_block)
@@ -40,12 +41,13 @@ class Kit:
 
 
 class Kits:
-    def __init__(self, memory_block):
+    def __init__(self, memory_block, indexFrom, indexTo):
+        self.indexFrom = indexFrom
+        self.indexTo = indexTo
         self.memory_block = memory_block
         self.kits = []
         for i in range(200):
-            slice_block = self.memory_block[KIT_MEMSIZE*i:KIT_MEMSIZE*(i+1)]
-            self.kits.append(Kit(slice_block))
+            self.kits.append(Kit(self.memory_block, self.indexFrom+KIT_MEMSIZE*i))
 
     def get_list_of_kits(self):
         res = []

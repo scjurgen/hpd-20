@@ -54,11 +54,8 @@ class hpd:
         print(" ".join(hex(n) for n in self.md5_memory))
 
         self.memoryBlock = memory_block[0:-16]   # strip md5
-
-        pads_memory = memory_block[hpd.PAD_MEMINDEX:hpd.PAD_MEMINDEX + hpd.PADS_COUNT * hpd.PAD_MEMSIZE]
-        kits_memory = memory_block[hpd.KIT_MEMINDEX:hpd.KIT_MEMINDEX + hpd.KITS_COUNT * hpd.KIT_MEMSIZE]
-        self.kits = Kits(kits_memory)
-        self.pads = Pads(pads_memory)
+        self.kits = Kits(self.memoryBlock, hpd.KIT_MEMINDEX, hpd.KIT_MEMINDEX + hpd.KITS_COUNT * hpd.KIT_MEMSIZE)
+        self.pads = Pads(self.memoryBlock, hpd.PAD_MEMINDEX, hpd.PAD_MEMINDEX + hpd.PADS_COUNT * hpd.PAD_MEMSIZE)
 
     def digest_kits(self):
         result = "Kits:\n"
