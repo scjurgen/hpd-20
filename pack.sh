@@ -8,7 +8,7 @@ echo setup.py ${versionsetup}
 
 if [ "$versionhpd20" != "$versionsetup" ]
 then
-	echo "The version are different, please update them before packing"
+	echo "The versions are different, please update them before packing"
         sleep 2 
         vi hpd20/hpd20.py +19
         vi setup.py +20

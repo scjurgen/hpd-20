@@ -1718,14 +1718,14 @@ for i in range(850):
 '''
 
 
-def get_instrument_name(index):
+def get_instrument_name(index:int):
     if index in instruments:
         return instruments[index][1]
     return "User Instrument"
 
 
-def get_instrument_name_with_index(index):
-    return instruments.get(index,  [0,"User Instrument #" + str(index-850)])[1]
+def get_instrument_name_with_index(index:int):
+    return instruments.get(index,  [0, "User Instrument #" + str(index-850)])[1]
 
 
 def get_internal_map(index):

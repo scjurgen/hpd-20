@@ -85,10 +85,11 @@ class HpdForm(wx.Frame):
         self.fill_kit(kit)
         self.current_kit = kit
         self.config.set('Settings', 'current_kit', kit)
-        with open(self.config_filename, 'wb') as configfile:
+        with open(self.config_filename, 'w') as configfile:
             self.config.write(configfile)
 
     def change_kit_name(self, event):
+        print(f"{event}")
         pass
 
     def layout_menu(self):
@@ -204,8 +205,10 @@ class HpdForm(wx.Frame):
             self.kit_grid.SetCellEditor(i * 2, 4, gridlib.GridCellNumberEditor(0, 8))
             self.kit_grid.SetCellValue(i * 2, 5, str(pad.get_mono_poly()))
             for instr in range(2):
+
                 col_idx = i * 2 + instr
-                choice_editor = gridlib.GridCellChoiceEditor(get_complete_instrument_list(), False)
+                instr_list = get_complete_instrument_list()
+                choice_editor = gridlib.GridCellChoiceEditor(instr_list, False)
                 #choice_editor.SetText(get_instrument_name(pad.get_patch(instr)))
                 self.kit_grid.SetCellEditor(col_idx, instr_index_offset+0, choice_editor)
                 self.kit_grid.SetCellValue(col_idx, instr_index_offset+0, get_instrument_name_with_index(pad.get_patch(instr)))
@@ -245,7 +248,7 @@ class HpdForm(wx.Frame):
         openFileDialog.Destroy()
         self.default_kits_dir = path
         self.config.set('Settings', 'kits_directory', os.path.dirname(path))
-        with open(self.config_filename, 'wb') as configfile:
+        with open(self.config_filename, 'w') as configfile:
             self.config.write(configfile)
         self.fill_kit(self.current_kit)
 
@@ -258,7 +261,7 @@ class HpdForm(wx.Frame):
         openFileDialog.Destroy()
         self.default_kits_dir = path
         self.config.set('Settings', 'kits_directory', os.path.dirname(path))
-        with open(self.config_filename, 'wb') as configfile:
+        with open(self.config_filename, 'w') as configfile:
             self.config.write(configfile)
 
     def select_memory_backup(self):
@@ -273,7 +276,7 @@ class HpdForm(wx.Frame):
     def load_memory_backup(self, event):
         self.default_backup_dir = self.select_memory_backup()
         self.config.set('Settings', 'backup_directory', os.path.dirname(self.default_backup_dir))
-        with open(self.config_filename, 'wb') as configfile:
+        with open(self.config_filename, 'w') as configfile:
             self.config.write(configfile)
         self.hpd = hpd20.hpd(str(self.default_backup_dir))
         self.fill_kit(self.current_kit)
@@ -287,7 +290,7 @@ class HpdForm(wx.Frame):
         saveFileDialog.Destroy()
         self.default_backup_dir = path
         self.config.set('Settings', 'backup_directory', os.path.dirname(path))
-        with open(self.config_filename, 'wb') as configfile:
+        with open(self.config_filename, 'w') as configfile:
             self.config.write(configfile)
         self.hpd.save_file(str(path))
 

@@ -14,10 +14,11 @@ class Kit:
         self.memory_block = memory_block
 
     def main_name(self):
-        return MemoryOp.get_string(self.memory_block, NAME_INDEX, 12)
+        value = MemoryOp.get_string(self.memory_block, NAME_INDEX, 12)
+        return value
 
     def sub_name(self):
-        return MemoryOp.get_string(self.memory_block, SUBNAME_INDEX, 16)
+        return str(MemoryOp.get_string(self.memory_block, SUBNAME_INDEX, 16))
 
     def get_volume(self):
         return MemoryOp.get_unsigned_int8(self.memory_block, VOL_INDEX)

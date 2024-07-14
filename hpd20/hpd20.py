@@ -46,7 +46,7 @@ class hpd:
     KITS_COUNT = 200
     PADS_COUNT = KITS_COUNT * PADS_PER_KIT
 
-    def __init__(self, file_name):
+    def __init__(self, file_name: str):
         print("loading file {0}".format(file_name))
         with open(file_name, 'rb') as fh:
             memory_block = bytearray(fh.read())
@@ -69,7 +69,7 @@ class hpd:
             result += '\n'
         return result
 
-    def digest_single_kit(self, kit):
+    def digest_single_kit(self, kit: int):
         kit -= 1  # zero based
 
         result = "Kit {0}: {1} {2}\n".format(kit + 1, self.kits.get_kit(kit).main_name(), self.kits.get_kit(kit).sub_name())
@@ -84,40 +84,41 @@ class hpd:
         result += '\n'
         return result
 
-    def save_file(self, file_name):
-        m = hashlib.md5()
-        m.update(str(self.memoryBlock))
-        md5_digest = m.digest()
-        fh = file(file_name, 'wb')
-        fh.write(self.memoryBlock)
-        print(" ".join(hex(ord(n)) for n in md5_digest))
-        fh.write(md5_digest)
+    def save_file(self, file_name: str):
 
-    def save_kit(self, kit_index, file_name, inc_filename_ifexists=False):
+        m = hashlib.md5()
+        m.update(self.memoryBlock)
+        md5_digest = m.digest()
+        with open(file_name, 'wb') as fh:
+            fh.write(self.memoryBlock)
+            print(" ".join(hex(n) for n in md5_digest))
+            fh.write(md5_digest)
+
+    def save_kit(self, kit_index: int, file_name: str, inc_filename_if_exists: bool=False):
         try:
-            if inc_filename_ifexists:
+            if inc_filename_if_exists:
                 pass
 
-            fh = file(file_name, 'wb')
-            kit = self.kits.get_kit(kit_index)
-            kit.save(fh)
-            for pad_index in range(hpd.PADS_PER_KIT):
-                pad = self.pads.get_pad(hpd.PADS_PER_KIT * kit_index + pad_index)
-                pad.save(fh)
+            with open(file_name, 'wb') as fh:
+                kit = self.kits.get_kit(kit_index)
+                kit.save(fh)
+                for pad_index in range(hpd.PADS_PER_KIT):
+                    pad = self.pads.get_pad(hpd.PADS_PER_KIT * kit_index + pad_index)
+                    pad.save(fh)
         except Exception as e:
             print("Exception {0}".format(e))
 
-    def load_kit(self, kit_index, file_name):
+    def load_kit(self, kit_index:int, file_name:str):
         try:
-            fh = file(file_name, 'rb')
-            kit = self.kits.get_kit(kit_index)
-            kit.load(fh)
-            for pad_index in range(hpd.PADS_PER_KIT):
-                final_pad_index = hpd.PADS_PER_KIT * kit_index + pad_index
-                pad = self.pads.get_pad(final_pad_index)
-                pad.load(fh)
-                self.memoryBlock[hpd.PAD_MEMINDEX + hpd.PAD_MEMSIZE * final_pad_index:hpd.PAD_MEMINDEX + hpd.PAD_MEMSIZE * (final_pad_index + 1)] = pad.memory_block
-            self.memoryBlock[hpd.KIT_MEMINDEX + hpd.KIT_MEMSIZE * kit_index:hpd.KIT_MEMINDEX + hpd.KIT_MEMSIZE * (kit_index + 1)] = kit.memory_block
+            with open(file_name, 'rb') as fh:
+                kit = self.kits.get_kit(kit_index)
+                kit.load(fh)
+                for pad_index in range(hpd.PADS_PER_KIT):
+                    final_pad_index = hpd.PADS_PER_KIT * kit_index + pad_index
+                    pad = self.pads.get_pad(final_pad_index)
+                    pad.load(fh)
+                    self.memoryBlock[hpd.PAD_MEMINDEX + hpd.PAD_MEMSIZE * final_pad_index:hpd.PAD_MEMINDEX + hpd.PAD_MEMSIZE * (final_pad_index + 1)] = pad.memory_block
+                self.memoryBlock[hpd.KIT_MEMINDEX + hpd.KIT_MEMSIZE * kit_index:hpd.KIT_MEMINDEX + hpd.KIT_MEMSIZE * (kit_index + 1)] = kit.memory_block
         except Exception as e:
             print("Exception {0}".format(e))
 
